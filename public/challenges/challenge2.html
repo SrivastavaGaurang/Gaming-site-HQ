@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Challenge 2: Phishing Detector</title>
+ 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a1a1a, #4b0082);
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+    }
+    .email-card {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      margin: 10px;
+      padding: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .email-card:hover {
+      transform: scale(1.05); 
+    }
+    .email-card.correct {
+      border: 2px solid #28a745; 
+    }
+    .email-card.incorrect {
+      border: 2px solid #dc3545; 
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+    .timer {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container text-center">
+    <h1>Challenge 2: Phishing Detector</h1>
+    <p>Identify which emails are phishing attempts. You have <span id="timer">60</span> seconds!</p>
+    <div class="row">
+      <!-- Email 1 -->
+      <div class="col-md-6">
+        <div class="email-card" data-type="phishing">
+          <h5>Urgent: Your Account Has Been Compromised</h5>
+          <p>Click <a href="#">here</a> to secure your account immediately.</p>
+          <i class="bi bi-exclamation-triangle"></i>
+        </div>
+      </div>
+      <!-- Email 2 -->
+      <div class="col-md-6">
+        <div class="email-card" data-type="legitimate">
+          <h5>Your Monthly Newsletter</h5>
+          <p>Here's your monthly newsletter. Click <a href="#">here</a> to read more.</p>
+          <i class="bi bi-check-circle"></i> 
+        </div>
+      </div>
+      <!-- Email 3 -->
+      <div class="col-md-6">
+        <div class="email-card" data-type="phishing">
+          <h5>You've Won a Prize!</h5>
+          <p>Claim your prize by clicking <a href="#">here</a>.</p>
+          <i class="bi bi-exclamation-triangle"></i> 
+        </div>
+      </div>
+      <!-- Email 4 -->
+      <div class="col-md-6">
+        <div class="email-card" data-type="legitimate">
+          <h5>Password Reset Request</h5>
+          <p>You requested a password reset. Click <a href="#">here</a> to proceed.</p>
+          <i class="bi bi-check-circle"></i> 
+        </div>
+      </div>
+    </div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    let score = 0;
+    let timeLeft = 60;
+    const timerElement = document.getElementById('timer');
+    const resultElement = document.getElementById('result');
+
+    // Timer
+    const timer = setInterval(() => {
+      timeLeft--;
+      timerElement.textContent = timeLeft;
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        endGame();
+      }
+    }, 1000);
+
+    // Email click event
+    document.querySelectorAll('.email-card').forEach(card => {
+      card.addEventListener('click', () => {
+        if (card.dataset.type === 'phishing') {
+          card.classList.add('correct');
+          score += 10;
+          resultElement.textContent = `Correct! This is a phishing attempt. Score: ${score}`;
+        } else {
+          card.classList.add('incorrect');
+          score -= 5;
+          resultElement.textContent = `Incorrect! This email is safe. Score: ${score}`;
+        }
+      });
+    });
+
+    // End game function
+    function endGame() {
+      resultElement.textContent = `Time's up! Your final score is ${score}.`;
+      document.querySelectorAll('.email-card').forEach(card => {
+        card.removeEventListener('click', () => {});
+      });
+    }
+  </script>
+</body>
+</html>

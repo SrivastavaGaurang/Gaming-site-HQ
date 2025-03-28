@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hacker Quest: The Cyber Challenge</title>
+ 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    
+    body {
+      background: linear-gradient(135deg, #1a1a1a, #4b0082); 
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+   
+    .navbar {
+      background-color: #1e1e1e;
+      padding: 15px 20px;
+    }
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #ffffff;
+    }
+    .navbar .btn-practice {
+      background-color: #4a90e2; 
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    .navbar .btn-practice:hover {
+      background-color: #357abd; 
+    }
+
+   
+    .gif-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .gif-section img {
+      width: 45%; 
+      max-width: 400px; 
+      height: auto; 
+      border-radius: 10px; 
+    }
+
+  
+    .join-section {
+      text-align: center;
+      margin-top: 20px;
+      flex: 1;
+    }
+    .join-section h1 {
+      font-size: 3.5rem; 
+      margin-bottom: 20px;
+    }
+    .join-section p {
+      font-size: 1.4rem; 
+      color: #cccccc;
+    }
+    .join-section input {
+      padding: 10px;
+      width: 300px;
+      border-radius: 5px;
+      border: 1px solid #444;
+      background-color: #1e1e1e;
+      color: #ffffff;
+      font-size: 1.2rem; 
+    }
+    .join-section button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+      background-color: #4a90e2; 
+      color: #ffffff;
+      font-size: 1.2rem; 
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .join-section button:hover {
+      background-color: #357abd;
+    }
+    .join-section .extra-buttons {
+      margin-top: 20px;
+    }
+    .join-section .extra-buttons button {
+      margin: 5px;
+      padding: 8px 16px;
+      border-radius: 5px;
+      border: none;
+      background-color: #6a1b9a; 
+      color: #ffffff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .join-section .extra-buttons button:hover {
+      background-color: #4a148c; 
+    }
+
+    .quick-links {
+      margin-top: 50px;
+      text-align: center;
+    }
+    .quick-links a {
+      color: #4a90e2; 
+      text-decoration: none;
+      margin: 0 10px;
+      font-size: 1.2rem; 
+      transition: color 0.3s ease;
+    }
+    .quick-links a:hover {
+      color: #357abd; 
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #1e1e1e;
+      color: #b3b3b3;
+      margin-top: auto;
+    }
+    .footer p {
+      margin: 0;
+      font-size: 1rem; 
+    }
+  </style>
+</head>
+<body>
+  
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Hacker Quest</a>
+      <button class="btn btn-practice" onclick="window.location.href='/hacker-quest'">Want to Practice?</button>
+    </div>
+  </nav>
+
+ 
+  <div class="gif-section">
+    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXMwd3Zia3c5Y2tramZtMDRjcjYzbDVzaGFxbXpuNDdqb2IxbXNsMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lo5HLcAPFSgTZNTpAn/giphy.gif" alt="Cyber Attack GIF">
+  </div>
+
+ 
+  <div class="join-section">
+    <h1>Hacker Quest</h1>
+    <p>Enter a join code to start your cyber challenge!</p>
+    <input type="text" id="joinCode" placeholder="Enter join code">
+    <br>
+    <button id="joinButton">Join</button>
+    <div class="extra-buttons">
+      <button onclick="window.location.href='/login'">Already have an account?</button>
+      <button onclick="window.location.href='/signup'">Sign Up</button>
+    </div>
+  </div>
+
+  
+  <div class="quick-links">
+    <a href="https://getbootstrap.com/">Boodstraop</a>
+    <a href="https://nodejs.org/en">Node JS</a>
+    <a href="https://react.dev/">React</a>
+  </div>
+
+  
+  <div class="footer">
+    <p>Accessibility & inclusion</p>
+    <p>© 2025 Hacker Quest Inc.</p>
+    <p>Yep Store | Sleeping</p>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    
+    document.getElementById('joinButton').addEventListener('click', () => {
+      const joinCode = document.getElementById('joinCode').value;
+      if (joinCode) {
+        alert(`Joining challenge with code: ${joinCode}`);
+      } else {
+        alert('Please enter a join code.');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hacker Quest: The Cyber Challenge</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a1a1a, #4b0082); 
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+    }
+    .card {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      margin: 10px;
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card-title {
+      color: #0d6efd;
+    }
+    .card img {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+    .gif-section img {
+      width: 22%;
+      max-width: 900px; 
+      height: auto; 
+      border-radius: 10px; 
+    }
+  </style>
+</head>
+<body>
+   
+
+  <div class="container text-center">
+  <div class="gif-section">
+    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbThjYmNwdzUxOW11ZndmcDJrNWVibW9uMmk5eHo1czFvc3ZmdTF6MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/78XCFBGOlS6keY1Bil/giphy.gif" alt="Cyber Attack GIF">
+  </div>
+    <h1 class="mt-5">Hacker Quest: The Cyber Challenge</h1>
+    <p>Test your hacking skills with these challenges!</p>
+    <div class="row">
+      <!-- Card 1 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://www.bleepstatic.com/content/posts/2023/05/09/specops-password-cracked.jpg" class="card-img-top" alt="Password Cracker">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 1: Password Cracker</h5>
+            <p class="card-text">Crack the password to proceed.</p>
+            <button id="challenge1" class="btn btn-primary">
+              <i class="bi bi-key"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://www.bleepstatic.com/content/hl-images/2022/08/23/phishing-hook.jpg" class="card-img-top" alt="Phishing Detector">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 2: Phishing Detector</h5>
+            <p class="card-text">Identify phishing emails.</p>
+            <button id="challenge2" class="btn btn-primary">
+              <i class="bi bi-envelope"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://www.bleepstatic.com/content/hl-images/2024/10/21/email.jpg" class="card-img-top" alt="Network Sniffer">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 3: Network Sniffer</h5>
+            <p class="card-text">Analyze network traffic.</p>
+            <button id="challenge3" class="btn btn-primary">
+              <i class="bi bi-router"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <!-- Card 4 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://cdn.prod.website-files.com/5fec9210c1841a6c20c6ce81/6764b85f3b0a17f6006e70fe_Blog%20-%202025%20Predictions.jpg" class="card-img-top" alt="SQL Injection">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 4: SQL Injection</h5>
+            <p class="card-text">Exploit SQL vulnerabilities.</p>
+            <button id="challenge4" class="btn btn-primary">
+              <i class="bi bi-database"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrET2U_8_U_7EjUbf1MSvF-ssBKdhM1amcVg&s" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 5: Cryptography</h5>
+            <p class="card-text">Decrypt the secret message.</p>
+            <button id="challenge5" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://cdn.prod.website-files.com/667dd40ebb8095e89f27565d/667dd40ebb8095e89f2760c7_blog-proxyNotShell.jpg" class="card-img-top" alt="Firewall Bypass">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 6: Firewall Bypass</h5>
+            <p class="card-text">Bypass the firewall rules.</p>
+            <button id="challenge6" class="btn btn-primary">
+              <i class="bi bi-shield-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    
+    document.getElementById('challenge1').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge1';
+    });
+    document.getElementById('challenge2').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge2';
+    });
+    document.getElementById('challenge3').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge3';
+    });
+    document.getElementById('challenge4').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge4';
+    });
+    document.getElementById('challenge5').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge5';
+    });
+    document.getElementById('challenge6').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge6';
+    });
+  </script>
+</body>
+</html>
