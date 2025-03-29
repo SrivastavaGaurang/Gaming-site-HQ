@@ -1,68 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up - Hacker Quest</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: linear-gradient(135deg, #1a1a1a, #4b0082); 
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: radial-gradient(circle, rgba(0,0,0,1) 40%, rgba(255,105,180,1) 100%);
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    perspective: 1200px;
+}
+
+.signup-box {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 60px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 35px lightpink;
+    text-align: center;
+    color: white;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: float 3s infinite ease-in-out;
+    width: 400px;
+    max-width: 90%;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotateY(10deg);
     }
-    .signup-container {
-      background-color: #1e1e1e;
-      padding: 20px;
-      border-radius: 10px;
-      width: 300px;
-      text-align: center;
+    50% {
+        transform: translateY(-15px) rotateY(-10deg);
     }
-    .signup-container input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #444;
-      background-color: #262626;
-      color: #ffffff;
-    }
-    .signup-container button {
-      width: 100%;
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-      background-color: #4a90e2;
-      color: #ffffff;
-      cursor: pointer;
-    }
-    .signup-container button:hover {
-      background-color: #357abd;
-    }
-    .gif-section img {
-      width: 90%; 
-      max-width: 800px;
-      height: auto; 
-      border-radius: 10px; 
-    }
-  </style>
+}
+
+h2 {
+    margin-bottom: 25px;
+    font-size: 32px;
+    text-shadow: 0 0 20px lightpink;
+}
+
+input {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 15px 0;
+    border: none;
+    background: transparent;
+    border-bottom: 3px solid lightpink;
+    color: white;
+    font-size: 20px;
+    outline: none;
+    text-align: center;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-bottom: 3px solid white;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background: lightpink;
+    border: none;
+    color: black;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.3s;
+    box-shadow: 0 0 20px lightpink;
+}
+
+button:hover {
+    background: white;
+    color: black;
+    box-shadow: 0 0 40px lightpink;
+}
+
+.login-link {
+    margin-top: 20px;
+    font-size: 18px;
+    color: lightpink;
+}
+
+.login-link a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+    </style>
 </head>
 <body>
-  <div class="gif-section">
-    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHVsYzNhdHozdnN0NndscTdhZWRrY3A1YmsyYmswZzFzM2ozY2h2OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2i7jspnRBYgg6v4Oki/giphy.gif" alt="Cyber Attack GIF">
-  </div>
-
-  <div class="signup-container">
-    <h2>Sign Up</h2>
-    <input type="text" placeholder="Username">
-    <input type="email" placeholder="Email">
-    <input type="password" placeholder="Password">
-    <button>Sign Up</button>
-  </div>
+    <div class="signup-container">
+        <div class="signup-box">
+            <h2>Signup</h2>
+            <form id="signup-form">
+                <input type="email" id="signup-email" placeholder="Email" required>
+                <input type="password" id="signup-password" placeholder="Password" required>
+                <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+            <p class="login-link">Already have an account? <a href="#">Login</a></p>
+        </div>
+    </div>
+    <script>
+      document.getElementById("signup-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+    
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+    
+    // Encrypt password using SHA-256 (more secure than btoa)
+    async function encryptPassword(password) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password);
+        const hash = await crypto.subtle.digest("SHA-256", data);
+        return Array.from(new Uint8Array(hash)).map(byte => byte.toString(16).padStart(2, '0')).join('');
+    }
+    
+    encryptPassword(password).then(encryptedPassword => {
+        console.log("Encrypted Password:", encryptedPassword);
+        alert("Secure signup successful!");
+    });
+});
+    </script>
 </body>
 </html>
