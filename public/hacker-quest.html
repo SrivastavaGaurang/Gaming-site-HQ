@@ -31,11 +31,116 @@
     }
     .gif-section img {
       width: 22%;
-      max-width: 900px; 
+      max-width: 2000px; 
       height: auto; 
       border-radius: 10px; 
     }
+     /* Cyberpunk Dark Theme */
+     body {
+            background: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        /* Glowing Effect */
+        .glow {
+            text-shadow: 0px 0px 8px #00ffff, 0px 0px 16px #00ffff;
+        }
+
+        /* Floating Card Effects */
+        .card {
+            background: rgba(30, 30, 30, 0.9);
+            color: #ffffff;
+            margin: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.8);
+            border-color: #00ffff;
+        }
+
+        /* Cyberpunk Buttons */
+        .btn-glow {
+            background: linear-gradient(90deg, #00ffff, #4b0082);
+            color: white;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease-in-out;
+            display: inline-block;
+        }
+
+        .btn-glow:hover {
+            background: linear-gradient(90deg, #4b0082, #00ffff);
+            box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+            transform: scale(1.1);
+        }
+
+        /* Floating Effect for Category Cards */
+        .category-card {
+            background: rgba(20, 20, 20, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
+        }
+
+        /* Cyberpunk Icons */
+        .icon {
+            font-size: 3rem;
+            color: #00ffff;
+            transition: color 0.3s ease;
+        }
+
+        .category-card:hover .icon {
+            color: #ff00ff;
+        }
+
+        /* Glitch Effect */
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px 5px #ff00ff, -2px -2px 5px #00ffff; }
+            50% { text-shadow: -2px -2px 5px #ff00ff, 2px 2px 5px #00ffff; }
+            100% { text-shadow: 2px 2px 5px #ff00ff, -2px -2px 5px #00ffff; }
+        }
+
+        .glitch {
+            animation: glitch 0.8s infinite alternate;
+        }
+        .btn-primary {
+    background: linear-gradient(90deg, #ff0080, #550082);
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #82006f, #00ffff);
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    transform: scale(1.1);
+}
+
   </style>
+  
 </head>
 <body>
    
@@ -46,6 +151,43 @@
   </div>
     <h1 class="mt-5">Hacker Quest: The Cyber Challenge</h1>
     <p>Test your hacking skills with these challenges!</p>
+     <!-- Game Level Selection -->
+     <div class="container mt-4">
+      <div class="row justify-content-center">
+          <!-- Easy Level -->
+          <div class="col-md-4">
+              <div class="category-card">
+                  <i class="bi bi-emoji-smile icon"></i>
+                  <h3 class="mt-3">Easy Challenges</h3>
+                  <p>Start with basic challenges to test your foundational skills.</p>
+                  <a href="/easy" class="btn btn-glow">Enter</a>
+              </div>
+          </div>
+
+          <!-- Medium Level -->
+          <div class="col-md-4">
+              <div class="category-card">
+                  <i class="bi bi-emoji-neutral icon"></i>
+                  <h3 class="mt-3">Medium Challenges</h3>
+                  <p>Take on intermediate challenges to sharpen your abilities.</p>
+                  <a href="/medium" class="btn btn-glow">Enter</a>
+              </div>
+          </div>
+
+          <!-- Hard Level -->
+          <div class="col-md-4">
+              <div class="category-card">
+                  <i class="bi bi-emoji-frown icon"></i>
+                  <h3 class="mt-3">Hard Challenges</h3>
+                  <p>Face advanced challenges to master your hacking skills.</p>
+                  <a href="/hard" class="btn btn-glow">Enter</a>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+
     <div class="row">
       <!-- Card 1 -->
       <div class="col-md-4">
@@ -127,6 +269,279 @@
           </div>
         </div>
       </div>
+      <!-- Card 7 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://media2.dev.to/dynamic/image/width=1600,height=900,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fwvgobbzdmb9txi2pesk0.jpg" class="card-img-top" alt="Binary Code Challenge">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 7: Binary Code Challenge</h5>
+            <p class="card-text">Convert binary to text.</p>
+            <button id="challenge7" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 8 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://www.bleepstatic.com/content/hl-images/2021/09/20/java.jpg" class="card-img-top" alt="💉 JavaScript Code Injection">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 8: 💉 JavaScript Code Injection</h5>
+            <p class="card-text">Can you execute hidden JavaScript?</p>
+            <button id="challenge8" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 9 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://static.zenrows.com/content/recaptcha_bypass_94a4308c7f.jpg" class="card-img-top" alt="🤖 CAPTCHA Bypass">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 9: 🤖 CAPTCHA Bypass</h5>
+            <p class="card-text">Solve the CAPTCHA to proceed.</p>
+            <button id="challenge9" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 10 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgtqz6fNkkExFCclOyFfTv4aIgwOmXlqG3J6YbYIj1UVzJX-qRpM_Sb0lCFkfKdpcLN3WcyUt3SA0YSd-727U0faypsNxf_Iw3Rocs4uQyNdJDqkCb8b4nBaM9qIdRuqVNn49iLBo1PVsCsfzekhPE9fiqK4bsWmxzgDPkpFG-YR0y39bqWC3odYOXlsw/s1600/65.webp" class="card-img-top" alt="Hidden Message Decoder">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 10: Hidden Message Decoder</h5>
+            <p class="card-text">Find the hidden text in the page source.</p>
+            <button id="challenge10" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 11 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgOc4B53VJCVd3dDNqhOnvywQFozKS9GMsb8HFYBYGePlIKBYcF88G-A2cktwLx1H3T7QHcoozUH20POq5YGWFGBjMqkrRwP-e4ivMetTcM4tzcBTWUE38-RzqCdG_tWEgCPUvekBjZ2_UhugUPzyCkQ99NLIw7fwyGQD8IbK1yguGIU-1YVdUbeGJvXUmx/s16000/CVE-2023-6000%20PoC%20(2).webp" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 11: 🖼️ Steganography Challenge</h5>
+            <p class="card-text">Find the hidden message in the image!</p>
+            <button id="challenge11" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 12 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnxgpKPcVIO5rjQJlhvPUQX1OOTr371LalpQ&s" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 12: 🔍 Man-in-the-Middle Attack</h5>
+            <p class="card-text">Intercept the communication.</p>
+            <button id="challenge12" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 13 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://media2.dev.to/dynamic/image/width=1600,height=900,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fuebz63a81awyh2zam71z.png" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 13: 🧩Code Obfuscation Puzzle</h5>
+            <p class="card-text">Can you decode this obfuscated JavaScript?</p>
+            <button id="challenge13" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 14 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://media2.dev.to/dynamic/image/width=1600,height=900,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fkx76m3qo3to9u1afpaji.jpg" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 14: ⚠️Cross-Site Scripting </h5>
+            <p class="card-text">Can you inject malicious code?</p>
+            <button id="challenge14" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 15 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjApJ3dOR0mrsPRzet-PoD7DnsVFW0giAl-7nRK9_KJGZykFH99YWa856KMNgWehwGRsSE6v2gTOBwXj-nYvReR9-Sc1FaJe6gCCka0dpoNJlKCbfcCA9t501dD26rO8gTooDAAA6VMQISkSrE5rzcxYiNm_Lz8dsDn6eCEFXtBUpiQtTO8Liesjz-Tly9U/s1600" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 15: 🔓 Brute Force Attack Challenge</h5>
+            <p class="card-text">Guess the correct 4-digit PIN before running out of attempts!</p>
+            <button id="challenge15" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 16 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://www.keysight.com/content/dam/keysight/en/img/cmp/2022/Keysight-Talks-Applications-1600x900.png?wid=388&hei=219&fmt=png-alpha&resMode=sharp2&op_sharpen=1" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 16: 📡 Packet Sniffing Challenge</h5>
+            <p class="card-text">Analyze the intercepted network data and find the hidden password.</p>
+            <button id="challenge16" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 17 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSifbSceP1PS-4veiONsp91Lo8ZN6Snv3hzgQ&s" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 17: 🚨Cross-Site Request Forgery </h5>
+            <p class="card-text">Detect and stop the CSRF attack before it executes!</p>
+            <button id="challenge17" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 18 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVMf462hC6zTUw2dW4q9KrX-wwK01tfnbTrQ&s" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 18: 🛡️DDoS Attack Defense</h5>
+            <p class="card-text">Identify and block the malicious IPs before the server crashes!</p>
+            <button id="challenge18" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 19 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmj_sFG902QcFx9SXgIsTNxf61mGdMe45JHQ&s" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 19: 🔑File Hashing & Integrity Check</h5>
+            <p class="card-text">Upload a file to verify its integrity.</p>
+            <button id="challenge19" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 20 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://static.acora.com/app/uploads/sites/2/2024/10/Cyberattacks-Soar-in-Q2-2024.png" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 20: 🕵️ Session Hijacking Simulation</h5>
+            <p class="card-text">Observe how session hijacking works by stealing session cookies.</p>
+            <button id="challenge20" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 21 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://media2.dev.to/dynamic/image/width=1600,height=900,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fcdn.zuplo.com%2Fwww%2Fmedia%2Fposts%2F2025-03-04-practices-and-tools-to-ensure-api-security%2Fimage.png" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 21: 🔑 API Security Challenge</h5>
+            <p class="card-text">Find the hidden API key and access restricted data.</p>
+            <button id="challenge21" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 22 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://www.pwc.com/cz/cs/forenzni-sluzby/assets/forensic-technology-solutions-1600-900.jpg" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 22: 🕵️‍♂️ Forensic Investigation Challenge</h5>
+            <p class="card-text">Analyze the hidden metadata of the image file to find clues.</p>
+            <button id="challenge22" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 23 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrv7L3qLPmzrnx8YyKTZsxAmUWDq6blUX47Q&s" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 23: 🔓 Brute Force Attack Challenge</h5>
+            <p class="card-text">Try to crack the system-generated password by guessing it!</p>
+            <button id="challenge23" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 24 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg0O-OoCYwNyDvHI13YdAvArMRVCV_w2BkHg&s" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 24: 📡 Packet Sniffing Challenge</h5>
+            <p class="card-text">Analyze the intercepted network data and extract the hidden message!</p>
+            <button id="challenge24" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 25 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://1.bp.blogspot.com/-cY3TJeuEpB8/XohWMbYR-WI/AAAAAAAAACc/YKYSRQS4wIQ3tqmRSHFdgmGdPuW0TnOgwCLcBGAsYHQ/s1600/arget-zvHhKiVuR9M-unsplash.jpg" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 25: 🔓 Enhanced Session Hijacking Simulation</h5>
+            <p class="card-text">Explore session security and hijacking risks.</p>
+            <button id="challenge25" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 26 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://cdn.prod.website-files.com/60658b47b03f0c77e8c14884/669f8c3260338bbf570268b9_AD_4nXdsA45sGqE2phdm1xWQ82kQlaGjqsM8Ba_ySm5ss_M2mBIpaMUWH6clWzPfDpmxyK-mMvY5y8b7lkcVUv8I0VBinLKozm_R_7_sZ0yS0iO3cBhZkKxm3xoxd663rVgci_5xMtzz2iy45IvmjR3lKY2S400.jpeg" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 26: 🔐 File Hashing & Integrity Check</h5>
+            <p class="card-text">Upload a file to verify its integrity.</p>
+            <button id="challenge26" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 27 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://forensicshq.com/wp-content/uploads/2024/09/home-page-banner3.jpg" class="card-img-top" alt="Cryptography">
+          <div class="card-body">
+            <h5 class="card-title">Challenge 27: 🕵️ Advanced Forensic Investigation Challenge</h5>
+            <p class="card-text">Analyze the logs, verify file integrity, and track the attacker!</p>
+            <button id="challenge27" class="btn btn-primary">
+              <i class="bi bi-lock"></i> Start Challenge
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   
@@ -152,6 +567,69 @@
     });
     document.getElementById('challenge6').addEventListener('click', () => {
       window.location.href = '/challenges/challenge6';
+    });
+    document.getElementById('challenge7').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge7';
+    });
+    document.getElementById('challenge8').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge8';
+    });
+    document.getElementById('challenge9').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge9';
+    });
+    document.getElementById('challenge10').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge10';
+    });
+    document.getElementById('challenge11').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge11';
+    });
+    document.getElementById('challenge12').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge12';
+    });
+    document.getElementById('challenge13').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge13';
+    });
+    document.getElementById('challenge14').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge14';
+    });
+    document.getElementById('challenge15').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge15';
+    });
+    document.getElementById('challenge16').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge16';
+    });
+    document.getElementById('challenge17').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge17';
+    });
+    document.getElementById('challenge18').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge18';
+    });
+    document.getElementById('challenge19').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge19';
+    });
+    document.getElementById('challenge20').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge20';
+    });
+    document.getElementById('challenge21').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge21';
+    });
+    document.getElementById('challenge22').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge22';
+    });
+    document.getElementById('challenge23').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge23';
+    });
+    document.getElementById('challenge24').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge24';
+    });
+    document.getElementById('challenge25').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge25';
+    });
+    document.getElementById('challenge26').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge26';
+    });
+    document.getElementById('challenge27').addEventListener('click', () => {
+      window.location.href = '/challenges/challenge27';
     });
   </script>
 </body>

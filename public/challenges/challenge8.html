@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Code Injection</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="../js/js_code_injection.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">💉 JavaScript Code Injection</h1>
+        <p class="description">Can you execute hidden JavaScript?</p>
+        <button class="btn" onclick="startJSInjection()">Start</button>
+    </div>
+    <script>
+        function startJSInjection() {
+    let input = prompt("Enter a JavaScript command:");
+
+    if (input.includes("alert")) {
+        alert("✅ Success! You injected JavaScript!");
+    } else {
+        alert("❌ Try again! Find the vulnerability.");
+    }
+}
+
+    </script>
+</body>
+</html>

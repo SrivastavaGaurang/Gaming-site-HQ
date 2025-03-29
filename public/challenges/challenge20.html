@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Hijacking Simulation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #0f0f0f;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5);
+        }
+        .session-box {
+            background-color: #222;
+            color: red;
+            padding: 10px;
+            border: 1px solid red;
+            border-radius: 5px;
+            font-family: monospace;
+            word-wrap: break-word;
+        }
+        .btn-hijack {
+            background-color: red;
+            color: white;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🕵️ Session Hijacking Simulation</h1>
+        <p>Observe how session hijacking works by stealing session cookies.</p>
+
+        <div class="card">
+            <p><strong>Current Session Token:</strong></p>
+            <div class="session-box" id="sessionToken">Generating...</div>
+
+            <button class="btn btn-hijack" onclick="hijackSession()">Hijack Session</button>
+            <p id="hijackResult"></p>
+        </div>
+
+        <a href="index.html" class="btn btn-secondary mt-3">Back to Challenges</a>
+    </div>
+
+    <script >function generateSessionToken() {
+        return "SESSION_" + Math.random().toString(36).substring(2, 15);
+    }
+    
+    function hijackSession() {
+        const sessionToken = document.getElementById("sessionToken").textContent;
+        const hijackResult = document.getElementById("hijackResult");
+    
+        hijackResult.innerHTML = `🚨 Attacker has stolen the session! Token: <br><span style="color: yellow;">${sessionToken}</span>`;
+    }
+    
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("sessionToken").textContent = generateSessionToken();
+    });
+    </script>
+
+</body>
+</html>

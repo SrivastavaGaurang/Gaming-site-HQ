@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forensic Investigation Challenge</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #0e0e0e;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5);
+        }
+        .btn-analyze {
+            background-color: red;
+            color: white;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #metadataResult {
+            background-color: #111;
+            padding: 10px;
+            border: 1px solid red;
+            border-radius: 5px;
+            font-family: monospace;
+            word-wrap: break-word;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🕵️‍♂️ Forensic Investigation Challenge</h1>
+        <p>Analyze the hidden metadata of the image file to find clues.</p>
+
+        <div class="card">
+            <p><strong>Upload an image to extract metadata:</strong></p>
+            <input type="file" id="fileInput" accept="image/*" class="form-control">
+            <button class="btn btn-analyze" onclick="analyzeImage()">Analyze</button>
+            <p id="metadataResult"></p>
+        </div>
+
+        <a href="index.html" class="btn btn-secondary mt-3">Back to Challenges</a>
+    </div>
+
+    <script >function analyzeImage() {
+        const fileInput = document.getElementById("fileInput");
+        const metadataResult = document.getElementById("metadataResult");
+    
+        if (!fileInput.files.length) {
+            alert("Please upload an image file.");
+            return;
+        }
+    
+        const fakeMetadata = {
+            "File Name": fileInput.files[0].name,
+            "Creation Date": "2023-10-12 14:35:20",
+            "Camera Model": "Nikon D3500",
+            "GPS Coordinates": "37.7749° N, 122.4194° W"
+        };
+    
+        metadataResult.style.display = "block";
+        metadataResult.innerHTML = `<strong>Extracted Metadata:</strong><br>` +
+            Object.entries(fakeMetadata)
+                .map(([key, value]) => `📌 <b>${key}:</b> ${value}`)
+                .join("<br>");
+    }
+    </script>
+    
+
+</body>
+</html>

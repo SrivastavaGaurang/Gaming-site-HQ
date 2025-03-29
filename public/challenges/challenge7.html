@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Code Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="../js/binary_code.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">💾 Binary Code Challenge</h1>
+        <p class="description">Convert binary to text.</p>
+        <button class="btn" onclick="startBinaryChallenge()">Start</button>
+    </div>
+    <script>
+        function startBinaryChallenge() {
+    let binary = "01001000 01101001";  
+    let answer = prompt("Convert this binary to text: " + binary);
+
+    if (answer.toLowerCase() === "hi") {
+        alert("✅ Correct! You cracked the binary!");
+    } else {
+        alert("❌ Wrong answer! Try again.");
+    }
+}
+
+    </script>
+</body>
+</html>

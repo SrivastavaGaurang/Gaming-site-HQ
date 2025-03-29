@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steganography Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="../js/steganography.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🖼️ Steganography Challenge</h1>
+        <p class="description">Find the hidden message in the image!</p>
+        <img src="../assets/hidden_message.png" alt="Stego Image">
+        <button class="btn" onclick="startSteganography()">Start</button>
+    </div>
+    <script>
+        function startSteganography() {
+    let answer = prompt("What is the hidden message? (Hint: Use an online Steganography decoder)");
+
+    if (answer.toLowerCase() === "hacker") {
+        alert("✅ Correct! You found the hidden message.");
+    } else {
+        alert("❌ Wrong! Try again.");
+    }
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Obfuscation Puzzle</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="../js/code_obfuscation.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🧩Code Obfuscation Puzzle</h1>
+        <p class="description">Can you decode this obfuscated JavaScript?</p>
+        <button class="btn" onclick="startCodeObfuscation()">Start</button>
+    </div>
+    <script>
+        function startCodeObfuscation() {
+    let result = prompt("Decode this: `atob('aGFja2Vy')`");
+
+    if (result.toLowerCase() === "hacker") {
+        alert("✅ Correct! You de-obfuscated the code.");
+    } else {
+        alert("❌ Incorrect! Try again.");
+    }
+}
+
+    </script>
+</body>
+</html>

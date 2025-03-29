@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Hijacking Simulation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5);
+        }
+        .btn {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .btn-hack {
+            background-color: red;
+            color: white;
+        }
+        .btn-expire {
+            background-color: orange;
+            color: white;
+        }
+        .btn-secure {
+            background-color: green;
+            color: white;
+        }
+        #sessionId, #hackedSession {
+            background-color: #222;
+            padding: 10px;
+            border-radius: 5px;
+            word-wrap: break-word;
+            font-family: "Courier New", monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🔓 Enhanced Session Hijacking Simulation</h1>
+        <p>Explore session security and hijacking risks.</p>
+
+        <!-- User Panel -->
+        <div class="card">
+            <h3>🛡️ User Session</h3>
+            <p>Current Session ID: <span id="sessionId">-</span></p>
+            <button class="btn btn-secure" onclick="refreshSession()">🔄 Refresh Session</button>
+            <button class="btn btn-expire" onclick="expireSession()">⏳ Expire Session</button>
+        </div>
+
+        <br>
+
+        <!-- Hacker Panel -->
+        <div class="card">
+            <h3>👨‍💻 Hacker Panel</h3>
+            <p>Hacked Session ID: <span id="hackedSession">-</span></p>
+            <button class="btn btn-hack" onclick="hijackSession()">💀 Hijack Session</button>
+            <button class="btn btn-warning" onclick="stealCookies()">🍪 Steal Cookies</button>
+        </div>
+
+        <br>
+
+        <a href="index.html" class="btn btn-secondary mt-3">Back to Challenges</a>
+    </div>
+
+    <script >
+        // Generate a random session ID
+function generateSessionID() {
+    return "SESSION_" + Math.random().toString(36).substr(2, 10);
+}
+
+// Store session ID in localStorage (simulating cookies)
+function setSession() {
+    let newSession = generateSessionID();
+    localStorage.setItem("userSession", newSession);
+    document.getElementById("sessionId").textContent = newSession;
+}
+
+// Refresh user session
+function refreshSession() {
+    setSession();
+    document.getElementById("hackedSession").textContent = "-";
+}
+
+// Expire session (simulate logout)
+function expireSession() {
+    localStorage.removeItem("userSession");
+    document.getElementById("sessionId").textContent = "Expired";
+    document.getElementById("hackedSession").textContent = "-";
+}
+
+// Simulate session hijacking
+function hijackSession() {
+    let stolenSession = localStorage.getItem("userSession");
+    if (stolenSession) {
+        document.getElementById("hackedSession").textContent = stolenSession;
+        alert("🚨 Session Hijacked! Unauthorized access granted.");
+    } else {
+        alert("✅ No active session found to hijack.");
+    }
+}
+
+// Simulate stealing cookies
+function stealCookies() {
+    let sessionCookie = localStorage.getItem("userSession");
+    if (sessionCookie) {
+        alert("🍪 Stolen Cookie Data: " + sessionCookie);
+    } else {
+        alert("✅ No cookies found.");
+    }
+}
+
+// Initialize session on page load
+setSession();
+
+    </script>
+
+</body>
+</html>

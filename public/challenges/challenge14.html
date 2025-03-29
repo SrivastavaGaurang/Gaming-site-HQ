@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSS Attack</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="../js/xss_attack.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">⚠️Cross-Site Scripting (XSS)</h1>
+        <p class="description">Can you inject malicious code?</p>
+        <button class="btn" onclick="startXSS()">Start</button>
+    </div>
+    <script>
+        function startXSS() {
+    let script = prompt("Enter a malicious script:");
+
+    if (script.includes("<script>")) {
+        alert("✅ Success! You performed an XSS attack.");
+    } else {
+        alert("❌ Incorrect! Try again.");
+    }
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAPTCHA Bypass</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="../js/captcha_bypass.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🤖 CAPTCHA Bypass</h1>
+        <p class="description">Solve the CAPTCHA to proceed.</p>
+        <button class="btn" onclick="startCaptchaBypass()">Start</button>
+    </div>
+    <script>
+        function startCaptchaBypass() {
+    let captcha = "x9g4b";
+    let answer = prompt("Enter the CAPTCHA code: x9g4b");
+
+    if (answer === captcha) {
+        alert("✅ Correct! You bypassed the CAPTCHA.");
+    } else {
+        alert("❌ Wrong! Try again.");
+    }
+}
+
+    </script>
+</body>
+</html>

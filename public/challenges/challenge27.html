@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Forensic Investigation Challenge</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: white;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .log-container, .result-container {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            box-shadow: 0px 0px 10px rgba(0, 200, 255, 0.5);
+        }
+        .btn {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .btn-analyze {
+            background-color: blue;
+            color: white;
+        }
+        .btn-hint {
+            background-color: green;
+            color: white;
+        }
+        .result {
+            background-color: #111;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-family: "Courier New", monospace;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🕵️ Advanced Forensic Investigation Challenge</h1>
+        <p>Analyze the logs, verify file integrity, and track the attacker!</p>
+
+        <!-- Log File Selection -->
+        <div class="mb-3">
+            <label for="logSelection" class="form-label">Select a Log File:</label>
+            <select id="logSelection" class="form-select">
+                <option value="1">Log File 1 - Suspicious Activity</option>
+                <option value="2">Log File 2 - Data Breach</option>
+                <option value="3">Log File 3 - Insider Threat</option>
+            </select>
+        </div>
+
+        <!-- Log File Display -->
+        <div class="log-container">
+            <h5>📜 Log File Content</h5>
+            <p id="logContent"></p>
+        </div>
+
+        <!-- Actions -->
+        <button class="btn btn-analyze" onclick="analyzeLogs()">🔍 Analyze Logs</button>
+        <button class="btn btn-hint" onclick="getHint()">💡 Get Hint</button>
+
+        <!-- File Integrity Check -->
+        <h3 class="mt-4">🔒 File Integrity Check</h3>
+        <input type="text" id="hashInput" class="form-control" placeholder="Enter suspected file hash...">
+        <button class="btn btn-warning" onclick="verifyHash()">🔎 Verify Hash</button>
+
+        <!-- Results -->
+        <div class="result" id="result"></div>
+
+        <br>
+
+        <a href="index.html" class="btn btn-secondary mt-3">Back to Challenges</a>
+    </div>
+
+    <script >
+        const logFiles = {
+    1: [
+        "[INFO] User logged in: admin",
+        "[INFO] User accessed secure files",
+        "[WARNING] Multiple failed login attempts from IP: 192.168.1.105",
+        "[INFO] File 'classified.docx' downloaded",
+        "[ALERT] Suspicious script execution: 'exploit.exe'",
+        "[INFO] User logged out: admin"
+    ],
+    2: [
+        "[INFO] VPN connection established",
+        "[WARNING] Unauthorized database access attempt from 203.120.14.67",
+        "[ERROR] Data dump detected: 'user_credentials.sql'",
+        "[INFO] Connection closed"
+    ],
+    3: [
+        "[INFO] Employee accessed financial reports",
+        "[WARNING] Large data transfer detected from internal network",
+        "[ALERT] Outbound email with encrypted attachment sent to external address",
+        "[INFO] User session terminated"
+    ]
+};
+
+// Load logs based on selection
+document.getElementById("logSelection").addEventListener("change", function() {
+    let selectedLog = this.value;
+    document.getElementById("logContent").textContent = logFiles[selectedLog].join("\n");
+});
+
+// Analyze logs for suspicious activity
+function analyzeLogs() {
+    let selectedLog = document.getElementById("logSelection").value;
+    let logData = logFiles[selectedLog];
+
+    let findings = [];
+
+    if (logData.some(line => line.includes("exploit.exe") || line.includes("data dump"))) {
+        findings.push("🚨 Malicious script detected! Possible security breach.");
+    }
+    if (logData.some(line => line.includes("unauthorized") || line.includes("failed login"))) {
+        findings.push("⚠️ Unauthorized access attempt found. Possible brute-force attack.");
+    }
+    if (logData.some(line => line.includes("outbound email") || line.includes("financial reports"))) {
+        findings.push("📧 Possible insider threat detected. Data exfiltration suspected.");
+    }
+
+    document.getElementById("result").textContent = findings.length ? findings.join("\n") : "✅ No critical threats detected.";
+}
+
+// Provide hints to players
+function getHint() {
+    alert("💡 Pay attention to 'ALERT' or 'WARNING' entries in the logs. Look for external IPs or encrypted attachments.");
+}
+
+// Hash verification
+function verifyHash() {
+    let enteredHash = document.getElementById("hashInput").value;
+    let expectedHashes = {
+        "classified.docx": "3a7bd3e2360a3d53c5a44a1f04c89b9c9148f3cd28eb9f8cbd1fc50a6c3a2b3a",
+        "user_credentials.sql": "d5579c46dfcc7c3d57f2f59b626fc9c5f2cdece3bfe024bda95b3e181d42a2f4"
+    };
+
+    let resultText = Object.values(expectedHashes).includes(enteredHash)
+        ? "🛑 ALERT: The entered hash matches a compromised file!"
+        : "✅ File appears to be safe.";
+    document.getElementById("result").textContent = resultText;
+}
+
+    </script>
+
+</body>
+</html>
