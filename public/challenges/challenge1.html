@@ -3,110 +3,357 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Challenge 1: Password Cracker</title>
+  <title>Challenge 2: Phishing Detector</title>
+ 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  
   <style>
     body {
-      background: linear-gradient(135deg, #1a1a1a, #4b0082); 
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-    }
-    .container {
-      margin-top: 50px;
+      background: url('../3835324.jpg') no-repeat center center fixed;
+      background-size: cover; /* Ensures the image covers the entire viewport */
+      color: #ffffff; /* Light text for better contrast with the dark background */
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
     }
-    .timer {
-      font-size: 1.5rem;
+  
+    h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px #000000, 0 0 20px #000000; /* Dark shadow for better visibility */
       margin-bottom: 20px;
     }
+  
+    p {
+      font-size: 1.2rem;
+      color: #e0e0e0; /* Softer gray for readability */
+      margin-bottom: 30px;
+      text-shadow: 0 0 5px #000000; /* Subtle shadow for better visibility */
+    }
+  
+    .progress-container {
+      margin: 20px 0;
+      width: 100%;
+      max-width: 600px;
+    }
+  
+    .progress {
+      height: 15px;
+      background-color: rgba(255, 255, 255, 0.2); /* Subtle background for the progress bar */
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+  
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #00ffcc, #0066ff); /* Cool gradient for progress bar */
+      transition: width 0.3s ease;
+    }
+  
+    .email-card {
+      background: rgba(0, 0, 0, 0.7); /* Semi-transparent black for better readability */
+      border-radius: 15px;
+      padding: 20px;
+      margin: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow effect */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+  
+    .email-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+    }
+  
+    .email-card.correct {
+      border: 2px solid #28a745;
+      box-shadow: 0 0 15px #28a745;
+    }
+  
+    .email-card.incorrect {
+      border: 2px solid #dc3545;
+      box-shadow: 0 0 15px #dc3545;
+    }
+  
+    .email-card h5 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ffffff; /* Light text for better contrast */
+      margin-bottom: 10px;
+      text-shadow: 0 0 5px #000000; /* Subtle shadow for better visibility */
+    }
+  
+    .email-card p {
+      font-size: 1rem;
+      color: #cccccc; /* Softer gray for readability */
+      text-shadow: 0 0 5px #000000; /* Subtle shadow for better visibility */
+    }
+  
     .result {
       margin-top: 20px;
       font-size: 1.2rem;
+      font-weight: bold;
+      color: #00ffcc; /* Cool tone for feedback */
+      text-shadow: 0 0 10px #000000; /* Subtle shadow for better visibility */
     }
-    .hint {
-      margin-top: 10px;
-      color: #cccccc;
+  
+    .timer {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #00ffcc; /* Cool tone for timer */
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #000000; /* Subtle shadow for better visibility */
     }
-    .feedback {
-      margin-top: 10px;
+  
+    .final-score {
       font-size: 2rem;
+      font-weight: bold;
+      color: #00ffcc; /* Cool tone for final score */
+      text-shadow: 0 0 10px #000000, 0 0 20px #000000; /* Subtle shadow for better visibility */
+      margin: 30px 0;
+    }
+  
+    .btn {
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+  
+    .btn-primary {
+      background: linear-gradient(90deg, #00ffcc, #0066ff); /* Cool gradient */
+      color: #ffffff;
+      box-shadow: 0 0 10px #00ffcc;
+    }
+  
+    .btn-primary:hover {
+      background: linear-gradient(90deg, #0066ff, #00ffcc);
+      box-shadow: 0 0 20px #00ffcc;
+      transform: scale(1.05);
+    }
+  
+    .btn-success {
+      background: linear-gradient(90deg, #28a745, #00ff00); /* Green for success */
+      color: #ffffff;
+      box-shadow: 0 0 10px #28a745;
+    }
+  
+    .btn-success:hover {
+      background: linear-gradient(90deg, #00ff00, #28a745);
+      box-shadow: 0 0 20px #28a745;
+      transform: scale(1.05);
+    }
+  
+    .hidden {
+      display: none;
     }
   </style>
+  
 </head>
 <body>
-  <div class="container">
-    <h1>Challenge 1: Password Cracker</h1>
-    <p>Crack the password to proceed.</p>
-
-    <!-- Timer -->
-    <div class="timer">
-      Time Remaining: <span id="time">60</span> seconds
+  <div class="container text-center">
+    <h1>Challenge 2: Phishing Detector</h1>
+    <p>Identify which emails are phishing attempts. You have <span id="timer">60</span> seconds!</p>
+    
+    <div class="progress-container">
+      <div id="questionNumber">Question 1 of 10</div>
+      <div class="progress">
+        <div class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
     </div>
-
-    <!-- Password Input -->
-    <input type="text" id="password" placeholder="Enter password">
-    <button id="submit" class="btn btn-primary">Submit</button>
-
-    <!-- Hint -->
-    <div class="hint">
-      <button id="hintButton" class="btn btn-secondary">Get Hint</button>
-      <p id="hintText" class="mt-2"></p>
+    
+    <div id="emailContainer" class="row">
+      <!-- Email content will be dynamically inserted here -->
     </div>
-
-    <!-- Feedback -->
-    <div class="feedback" id="feedback"></div>
-
-    <!-- Result -->
-    <p id="result" class="result"></p>
+    
+    <div class="result" id="result"></div>
+    
+    <button id="nextButton" class="btn btn-primary mt-3 hidden">Next Question</button>
+    
+    <div id="finalScoreContainer" class="hidden">
+      <div class="final-score">Your final score: <span id="finalScore">0</span> out of 100</div>
+      <button onclick="window.location.href='/hacker-quest'" class="btn btn-success">Back to Challenges</button>
+    </div>
   </div>
 
   <script>
-    // Password and hints
-    const passwords = {
-      easy: 'hackme123',
-      medium: 'P@ssw0rd',
-      hard: 'H@ck3rQu3st!'
-    };
-    const hints = {
-      easy: 'Hint: The password is related to hacking.',
-      medium: 'Hint: The password contains special characters.',
-      hard: 'Hint: The password is a combination of letters, numbers, and symbols.'
-    };
+    // Email database with questions
+    const emailQuestions = [
+      {
+        emails: [
+          { subject: "Urgent: Your Account Has Been Compromised", content: "Click here to secure your account immediately. Your account will be suspended in the next 24 hours if you don't act now.", type: "phishing" },
+          { subject: "Your Monthly Newsletter", content: "Here's your monthly newsletter from Company XYZ. Click here to read more about our latest products.", type: "legitimate" }
+        ]
+      },
+      {
+        emails: [
+          { subject: "You've Won a Prize!", content: "Congratulations! You've been randomly selected to win $10,000. Click here to claim your prize now.", type: "phishing" },
+          { subject: "Order Confirmation #12345", content: "Thank you for your recent order. Your order #12345 has been confirmed and is being processed.", type: "legitimate" }
+        ]
+      },
+      {
+        emails: [
+          { subject: "Invoice Due", content: "Your invoice #INV-2023-0456 is due for payment. Please review the attached document for details.", type: "legitimate" },
+          { subject: "Verify Your Information", content: "We need to verify your account information. Please click here to confirm your personal details.", type: "phishing" }
+        ]
+      },
+      {
+        emails: [
+          { subject: "Security Alert: Login Attempt", content: "We've detected a login attempt from an unrecognized device. Click here to verify it was you or secure your account.", type: "phishing" },
+          { subject: "Your Subscription Renewal", content: "Your subscription to our service will renew on 05/15/2025. No action is required if you wish to continue.", type: "legitimate" }
+        ]
+      },
+      {
+        emails: [
+          { subject: "Password Reset Request", content: "You recently requested to reset your password. Click here to create a new password for your account.", type: "legitimate" },
+          { subject: "Urgent: Tax Refund Notification", content: "Your tax refund of $1,247.38 is pending. Click here to confirm your banking details for the deposit.", type: "phishing" }
+        ]
+      },
+      {
+        emails: [
+          { subject: "Account Verification Required", content: "Your account needs to be verified within 24 hours or it will be permanently deleted. Click here to verify now.", type: "phishing" },
+          { subject: "Thank You for Your Purchase", content: "Thank you for your recent purchase. Your receipt is attached and your order is being processed.", type: "legitimate" }
+        ]
+      },
+      {
+        emails: [
+          { subject: "Meeting Reminder", content: "This is a reminder about your scheduled meeting tomorrow at 2:00 PM. Please be prepared with your quarterly report.", type: "legitimate" },
+          { subject: "Unusual Sign-in Activity", content: "We've detected unusual activity on your account. Click here immediately to prevent unauthorized access.", type: "phishing" }
+        ]
+      },
+      {
+        emails: [
+          { subject: "Payment Failed", content: "Your recent payment failed due to insufficient funds. Click here to update your payment method and avoid service interruption.", type: "phishing" },
+          { subject: "Your E-ticket Confirmation", content: "Thank you for your booking. Your e-ticket #ET78901 is attached. Please present this at check-in.", type: "legitimate" }
+        ]
+      },
+      {
+        emails: [
+          { subject: "Document Shared With You", content: "A new document has been shared with you on our secure platform. Login to your account to view it.", type: "legitimate" },
+          { subject: "Verify Your Identity", content: "Our system needs to verify your identity. Please click here and enter your social security number and date of birth.", type: "phishing" }
+        ]
+      },
+      {
+        emails: [
+          { subject: "Package Delivery Failed", content: "Your package delivery failed because of an incorrect address. Click here to update your information and reschedule delivery.", type: "phishing" },
+          { subject: "Webinar Registration Confirmation", content: "Thank you for registering for our upcoming webinar on April 30, 2025. A calendar invitation has been sent to your email.", type: "legitimate" }
+        ]
+      }
+    ];
 
-    // Set initial difficulty
-    let difficulty = 'easy';
-    let password = passwords[difficulty];
+    // Game variables
+    let currentQuestion = 0;
+    let score = 0;
     let timeLeft = 60;
-
-    // Timer
-    const timer = setInterval(() => {
-      timeLeft--;
-      document.getElementById('time').textContent = timeLeft;
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        document.getElementById('result').innerText = 'Time\'s up! You failed.';
-        document.getElementById('submit').disabled = true;
-      }
-    }, 1000);
-
-    // Submit button
-    document.getElementById('submit').addEventListener('click', () => {
-      const userInput = document.getElementById('password').value;
-      if (userInput === password) {
-        clearInterval(timer);
-        document.getElementById('result').innerText = 'Success! Password cracked.';
-        document.getElementById('feedback').innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
-      } else {
-        document.getElementById('result').innerText = 'Incorrect password. Try again.';
-        document.getElementById('feedback').innerHTML = '<i class="bi bi-x-circle-fill text-danger"></i>';
-      }
-    });
-
-    // Hint button
-    document.getElementById('hintButton').addEventListener('click', () => {
-      document.getElementById('hintText').innerText = hints[difficulty];
-    });
+    let timerInterval;
+    
+    const timerElement = document.getElementById('timer');
+    const resultElement = document.getElementById('result');
+    const emailContainer = document.getElementById('emailContainer');
+    const questionNumberElement = document.getElementById('questionNumber');
+    const progressBar = document.querySelector('.progress-bar');
+    const nextButton = document.getElementById('nextButton');
+    const finalScoreContainer = document.getElementById('finalScoreContainer');
+    const finalScoreElement = document.getElementById('finalScore');
+    
+    // Initialize game
+    function initGame() {
+      // Start timer
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          endGame();
+        }
+      }, 1000);
+      
+      // Load first question
+      loadQuestion(currentQuestion);
+      
+      // Next button event listener
+      nextButton.addEventListener('click', () => {
+        currentQuestion++;
+        if (currentQuestion < emailQuestions.length) {
+          loadQuestion(currentQuestion);
+          nextButton.classList.add('hidden');
+        } else {
+          endGame();
+        }
+      });
+    }
+    
+    // Load question
+    function loadQuestion(questionIndex) {
+      // Update question number and progress bar
+      questionNumberElement.textContent = `Question ${questionIndex + 1} of ${emailQuestions.length}`;
+      progressBar.style.width = `${((questionIndex + 1) / emailQuestions.length) * 100}%`;
+      progressBar.setAttribute('aria-valuenow', ((questionIndex + 1) / emailQuestions.length) * 100);
+      
+      // Clear previous emails
+      emailContainer.innerHTML = '';
+      resultElement.textContent = '';
+      
+      // Create email cards
+      emailQuestions[questionIndex].emails.forEach((email, index) => {
+        const emailCard = document.createElement('div');
+        emailCard.className = 'col-md-6';
+        emailCard.innerHTML = `
+          <div class="email-card" data-type="${email.type}">
+            <h5>${email.subject}</h5>
+            <p>${email.content}</p>
+            ${email.type === 'phishing' ? '<i class="bi bi-exclamation-triangle"></i>' : '<i class="bi bi-check-circle"></i>'}
+          </div>
+        `;
+        emailContainer.appendChild(emailCard);
+        
+        // Add click event to email card
+        const card = emailCard.querySelector('.email-card');
+        card.addEventListener('click', () => {
+          // Remove click events from all cards
+          document.querySelectorAll('.email-card').forEach(c => {
+            c.style.pointerEvents = 'none';
+          });
+          
+          if (card.dataset.type === 'phishing') {
+            card.classList.add('correct');
+            score += 10;
+            resultElement.textContent = `Correct! This is a phishing attempt. +10 points. Score: ${score}`;
+          } else {
+            card.classList.add('incorrect');
+            score = Math.max(0, score - 5);
+            resultElement.textContent = `Incorrect! This email is safe. -5 points. Score: ${score}`;
+          }
+          
+          // Show next button
+          nextButton.classList.remove('hidden');
+        });
+      });
+    }
+    
+    // End game
+    function endGame() {
+      clearInterval(timerInterval);
+      emailContainer.innerHTML = '';
+      document.querySelector('.progress-container').style.display = 'none';
+      nextButton.classList.add('hidden');
+      
+      finalScoreElement.textContent = score;
+      finalScoreContainer.classList.remove('hidden');
+    }
+    
+    // Initialize game when page loads
+    window.onload = initGame;
   </script>
 </body>
 </html>

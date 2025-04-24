@@ -9,42 +9,412 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(135deg, #1a1a1a, #4b0082);
-      color: #ffffff;
-      font-family: Arial, sans-serif;
+      background: url('../249.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #ffffff; /* Adjusted for better contrast with the background */
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
+  
+    h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00; /* Matches the warm tones of the background */
+      margin-bottom: 20px;
+    }
+  
     .container {
-      margin-top: 50px;
+      margin-top: 30px;
       text-align: center;
+      max-width: 800px;
+      width: 90%;
     }
+  
+    .score-display {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7); /* Semi-transparent black for better readability */
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ffcc00; /* Matches the text shadow of the heading */
+      box-shadow: 0 0 10px #ffcc00;
+    }
+  
+    .progress {
+      height: 15px;
+      background-color: rgba(255, 255, 255, 0.2); /* Lighter background for the progress bar */
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+  
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #ffcc00, #ff6600); /* Warm gradient to match the background */
+      transition: width 0.3s ease;
+    }
+  
+    .question-container {
+      background: rgba(0, 0, 0, 0.8); /* Semi-transparent black for better readability */
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 15px rgba(255, 204, 0, 0.5); /* Subtle glow effect */
+      text-align: left;
+    }
+  
+    .question-container h3 {
+      font-size: 1.8rem;
+      color: #ffcc00; /* Matches the heading and score display */
+      margin-bottom: 10px;
+    }
+  
+    .question-container p {
+      font-size: 1.2rem;
+      color: #f0f0f0; /* Light gray for better readability */
+      margin-bottom: 15px;
+    }
+  
+    input {
+      width: 100%;
+      padding: 15px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1); /* Subtle input background */
+      color: #ffffff;
+      font-size: 1rem;
+      outline: none;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+  
+    input:focus {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px #ffcc00; /* Matches the warm tones */
+    }
+  
+    .navigation {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+  
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+  
+    .btn-primary {
+      background: linear-gradient(90deg, #ffcc00, #ff6600); /* Warm gradient */
+      color: #ffffff;
+      box-shadow: 0 0 10px #ffcc00;
+    }
+  
+    .btn-primary:hover {
+      background: linear-gradient(90deg, #ff6600, #ffcc00);
+      box-shadow: 0 0 20px #ffcc00;
+      transform: scale(1.05);
+    }
+  
+    .btn-success {
+      background: linear-gradient(90deg, #28a745, #00ff00); /* Green for success */
+      color: #ffffff;
+      box-shadow: 0 0 10px #28a745;
+    }
+  
+    .btn-success:hover {
+      background: linear-gradient(90deg, #00ff00, #28a745);
+      box-shadow: 0 0 20px #28a745;
+      transform: scale(1.05);
+    }
+  
+    .btn-warning {
+      background: linear-gradient(90deg, #ffc107, #ff8c00); /* Warm tones for warning */
+      color: #000000;
+      box-shadow: 0 0 10px #ffc107;
+    }
+  
+    .btn-warning:hover {
+      background: linear-gradient(90deg, #ff8c00, #ffc107);
+      box-shadow: 0 0 20px #ffc107;
+      transform: scale(1.05);
+    }
+  
     .feedback {
       margin-top: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      min-height: 40px;
+      color: #ffcc00; /* Matches the warm tones */
+      text-shadow: 0 0 10px #ffcc00;
+    }
+  
+    .feedback i {
+      font-size: 2rem;
+    }
+  
+    .summary {
+      background: rgba(0, 0, 0, 0.9); /* Dark background for the summary */
+      border-radius: 15px;
+      padding: 30px;
+      margin-top: 30px;
+      box-shadow: 0 5px 15px rgba(255, 204, 0, 0.5); /* Subtle glow effect */
+      text-align: center;
+    }
+  
+    .summary h2 {
+      font-size: 2rem;
+      color: #ffcc00; /* Matches the heading */
+      margin-bottom: 20px;
+    }
+  
+    .summary p {
       font-size: 1.2rem;
+      color: #f0f0f0; /* Light gray for readability */
+    }
+  
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Challenge 5: Cryptography</h1>
-    <p>Decrypt the following message (Caesar Cipher, shift = 3):</p>
-    <p><strong>Encrypted Message:</strong> "Khoor Zruog"</p>
-    <input type="text" id="decrypted" placeholder="Enter decrypted message">
-    <button id="submit" class="btn btn-primary">Submit</button>
+    <div class="score-display">Score: <span id="score">0</span>/10</div>
+    
+    <div class="progress">
+      <div id="progress-bar" class="progress-bar bg-success" role="progressbar" style="width: 10%"></div>
+    </div>
+    
+    <div id="question-area">
+      <!-- Questions will be loaded here -->
+    </div>
+
+    <div class="navigation">
+      <button id="submit" class="btn btn-primary me-2">Submit</button>
+      <button id="next" class="btn btn-success">Next Question</button>
+    </div>
 
     <!-- Feedback -->
     <div class="feedback" id="feedback"></div>
+    
+    <!-- Final Summary (hidden initially) -->
+    <div id="summary" class="summary hidden">
+      <h2>Challenge Complete!</h2>
+      <p>Your final score: <span id="final-score">0</span>/10</p>
+      <div id="performance-message"></div>
+      <button id="restart" class="btn btn-warning mt-3">Restart Challenge</button>
+    </div>
   </div>
 
   <script>
-    // Submit button click event
-    document.getElementById('submit').addEventListener('click', () => {
-      const decrypted = document.getElementById('decrypted').value.toLowerCase();
-      if (decrypted === 'hello world') {
-        document.getElementById('feedback').innerHTML = 'Correct! Message decrypted. <i class="bi bi-check-circle-fill text-success"></i>';
-      } else {
-        document.getElementById('feedback').innerHTML = 'Incorrect! Try again. <i class="bi bi-x-circle-fill text-danger"></i>';
+    // Question data
+    const questions = [
+      {
+        question: "Decrypt the following message (Caesar Cipher, shift = 3):",
+        encrypted: "Khoor Zruog",
+        answer: "hello world",
+        hint: "Each letter is shifted 3 places back in the alphabet."
+      },
+      {
+        question: "Decrypt this message (Caesar Cipher, shift = 5):",
+        encrypted: "Ymfspx ktwm ymj mjqu",
+        answer: "thanks for the help",
+        hint: "Each letter is shifted 5 places back in the alphabet."
+      },
+      {
+        question: "Decrypt this Atbash cipher message:",
+        encrypted: "xibkgltizksb",
+        answer: "cryptography",
+        hint: "In Atbash, 'A' becomes 'Z', 'B' becomes 'Y', etc."
+      },
+      {
+        question: "Decrypt this message (Caesar Cipher, shift = 7):",
+        encrypted: "Pzadavnyhwof pz mbu",
+        answer: "cryptography is fun",
+        hint: "Each letter is shifted 7 places back in the alphabet."
+      },
+      {
+        question: "Decrypt this message (ROT13):",
+        encrypted: "Gur nafjre vf ebggra",
+        answer: "the answer is rotten",
+        hint: "ROT13 shifts each letter 13 places in the alphabet."
+      },
+      {
+        question: "Decrypt this substitution cipher (A=X, B=Y, etc.):",
+        encrypted: "Zlcqb uldcp",
+        answer: "cipher codes",
+        hint: "Each letter is replaced with another specific letter."
+      },
+      {
+        question: "Decrypt this message (Caesar Cipher, shift = 4):",
+        encrypted: "Wigvix qiwweki",
+        answer: "secret message",
+        hint: "Each letter is shifted 4 places back in the alphabet."
+      },
+      {
+        question: "Decrypt this binary code (convert to ASCII):",
+        encrypted: "01001000 01101001 01100100 01100100 01100101 01101110",
+        answer: "hidden",
+        hint: "Convert each 8-bit binary number to its ASCII character."
+      },
+      {
+        question: "Decrypt this message (Caesar Cipher, shift = 1):",
+        encrypted: "Tfdsfu dpef sfwfbmfe",
+        answer: "secret code revealed",
+        hint: "Each letter is shifted 1 place back in the alphabet."
+      },
+      {
+        question: "Decrypt this message (Morse code):",
+        encrypted: "... --- ...  ... .. --. -. .- .-..",
+        answer: "sos signal",
+        hint: "Use Morse code translation: dots and dashes."
       }
-    });
+    ];
+
+    // Game state
+    let currentQuestion = 0;
+    let score = 0;
+    let questionAnswered = false;
+
+    // DOM elements
+    const questionArea = document.getElementById('question-area');
+    const submitButton = document.getElementById('submit');
+    const nextButton = document.getElementById('next');
+    const feedbackElement = document.getElementById('feedback');
+    const scoreDisplay = document.getElementById('score');
+    const finalScoreDisplay = document.getElementById('final-score');
+    const summaryElement = document.getElementById('summary');
+    const progressBar = document.getElementById('progress-bar');
+    const performanceMessage = document.getElementById('performance-message');
+    const restartButton = document.getElementById('restart');
+
+    // Load question
+    function loadQuestion(index) {
+      const question = questions[index];
+      questionArea.innerHTML = `
+        <div class="question-container">
+          <h3>Question ${index + 1}</h3>
+          <p>${question.question}</p>
+          <p><strong>Encrypted Message:</strong> "${question.encrypted}"</p>
+          <input type="text" id="answer-input" placeholder="Enter decrypted message">
+          <button id="hint-button" class="btn btn-outline-info btn-sm mt-2">Need a hint?</button>
+          <p id="hint-text" class="mt-2 text-info hidden">${question.hint}</p>
+        </div>
+      `;
+
+      // Add hint button event listener
+      document.getElementById('hint-button').addEventListener('click', () => {
+        document.getElementById('hint-text').classList.remove('hidden');
+      });
+
+      // Update progress bar
+      progressBar.style.width = `${(index + 1) * 10}%`;
+      
+      // Reset state for new question
+      questionAnswered = false;
+      feedbackElement.innerHTML = '';
+    }
+
+    // Check answer
+    function checkAnswer() {
+      if (questionAnswered) return;
+      
+      const userAnswer = document.getElementById('answer-input').value.toLowerCase().trim();
+      const correctAnswer = questions[currentQuestion].answer;
+      
+      if (userAnswer === correctAnswer) {
+        feedbackElement.innerHTML = 'Correct! <i class="bi bi-check-circle-fill text-success"></i>';
+        score++;
+        scoreDisplay.textContent = score;
+      } else {
+        feedbackElement.innerHTML = `Incorrect! The answer was "${correctAnswer}". <i class="bi bi-x-circle-fill text-danger"></i>`;
+      }
+      
+      questionAnswered = true;
+    }
+
+    // Move to next question
+    function nextQuestion() {
+      if (!questionAnswered && currentQuestion < questions.length) {
+        if (confirm("You haven't submitted an answer yet. Continue anyway?")) {
+          // Continue to next question without submitting
+        } else {
+          return;
+        }
+      }
+      
+      currentQuestion++;
+      
+      if (currentQuestion < questions.length) {
+        loadQuestion(currentQuestion);
+      } else {
+        // End of game
+        showSummary();
+      }
+    }
+
+    // Show final summary
+    function showSummary() {
+      questionArea.classList.add('hidden');
+      submitButton.classList.add('hidden');
+      nextButton.classList.add('hidden');
+      feedbackElement.classList.add('hidden');
+      
+      finalScoreDisplay.textContent = score;
+      summaryElement.classList.remove('hidden');
+      
+      // Display performance message based on score
+      if (score === 10) {
+        performanceMessage.innerHTML = '<p class="text-success">Perfect score! You are a cryptography master!</p>';
+      } else if (score >= 7) {
+        performanceMessage.innerHTML = '<p class="text-info">Great job! You have excellent decryption skills!</p>';
+      } else if (score >= 5) {
+        performanceMessage.innerHTML = '<p class="text-warning">Good effort! Keep practicing your cryptography skills.</p>';
+      } else {
+        performanceMessage.innerHTML = '<p class="text-danger">Keep studying cryptography techniques and try again!</p>';
+      }
+    }
+
+    // Restart game
+    function restartGame() {
+      currentQuestion = 0;
+      score = 0;
+      scoreDisplay.textContent = 0;
+      
+      questionArea.classList.remove('hidden');
+      submitButton.classList.remove('hidden');
+      nextButton.classList.remove('hidden');
+      feedbackElement.classList.remove('hidden');
+      summaryElement.classList.add('hidden');
+      
+      loadQuestion(currentQuestion);
+    }
+
+    // Event listeners
+    submitButton.addEventListener('click', checkAnswer);
+    nextButton.addEventListener('click', nextQuestion);
+    restartButton.addEventListener('click', restartGame);
+
+    // Initialize the first question
+    loadQuestion(currentQuestion);
   </script>
 </body>
 </html>

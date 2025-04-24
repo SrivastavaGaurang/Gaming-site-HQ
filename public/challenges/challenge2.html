@@ -3,124 +3,525 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Challenge 2: Phishing Detector</title>
- 
+  <title>Password Cracker Challenge</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  
   <style>
     body {
-      background: linear-gradient(135deg, #1a1a1a, #4b0082);
-      color: #ffffff;
-      font-family: Arial, sans-serif;
+      background: url('../840843081452.jpg') no-repeat center center fixed;
+      background-size: cover; /* Ensures the image covers the entire viewport */
+      color: #e0e0e0; /* Softer gray for better readability */
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
-    .email-card {
-      background-color: #1e1e1e;
-      color: #ffffff;
-      margin: 10px;
-      padding: 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
+  
+    .container {
+      margin-top: 30px;
+      text-align: center;
+      padding: 20px 25px; /* Adjusted padding for a balanced card size */
+      max-width: 550px; /* Medium-sized card */
+      width: 90%;
+      background: rgba(0, 0, 0, 0.85); /* Semi-transparent black for better readability */
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow effect */
     }
-    .email-card:hover {
-      transform: scale(1.05); 
+  
+    h1 {
+      font-size: 2.2rem; /* Adjusted font size for the title */
+      font-weight: bold;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; /* Cool blue glow effect */
+      margin-bottom: 15px;
     }
-    .email-card.correct {
-      border: 2px solid #28a745; 
-    }
-    .email-card.incorrect {
-      border: 2px solid #dc3545; 
-    }
-    .result {
-      margin-top: 20px;
-      font-size: 1.2rem;
-    }
-    .timer {
-      font-size: 1.5rem;
+  
+    p {
+      font-size: 1.1rem; /* Slightly larger font size for readability */
+      color: #cccccc; /* Softer gray for readability */
       margin-bottom: 20px;
     }
+  
+    .timer {
+      font-size: 1.3rem; /* Adjusted font size for the timer */
+      margin-bottom: 15px;
+      color: #00ffff; /* Cool blue tone for the timer */
+      font-weight: bold;
+      text-shadow: 0 0 10px #000000; /* Subtle shadow for better visibility */
+    }
+  
+    .progress {
+      height: 12px; /* Adjusted height for the progress bar */
+      margin: 15px 0;
+      background-color: rgba(255, 255, 255, 0.1); /* Subtle background for the progress bar */
+      border-radius: 10px;
+      overflow: hidden;
+    }
+  
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #00ffff, #0066ff); /* Cool gradient for progress bar */
+      transition: width 0.3s ease;
+    }
+  
+    .question-container {
+      background: rgba(0, 0, 0, 0.9); /* Darker semi-transparent black for better readability */
+      border-radius: 15px;
+      padding: 20px; /* Adjusted padding for a balanced card size */
+      margin-bottom: 20px;
+      box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3); /* Subtle glow effect */
+      text-align: left;
+    }
+  
+    .question-container h3 {
+      font-size: 1.6rem; /* Adjusted font size for question titles */
+      color: #00ffff; /* Cool blue tone for question titles */
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #000000; /* Subtle shadow for better visibility */
+    }
+  
+    input {
+      width: 100%;
+      padding: 12px; /* Adjusted padding for inputs */
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1); /* Subtle input background */
+      color: #ffffff;
+      font-size: 1rem;
+      outline: none;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+  
+    input:focus {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px #00ffff; /* Matches the glow effect */
+    }
+  
+    button {
+      padding: 10px 20px; /* Adjusted padding for buttons */
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem; /* Adjusted font size for buttons */
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+  
+    .btn-primary {
+      background: linear-gradient(90deg, #00ffff, #0066ff); /* Cool gradient */
+      color: #ffffff;
+      box-shadow: 0 0 10px #00ffff;
+    }
+  
+    .btn-primary:hover {
+      background: linear-gradient(90deg, #0066ff, #00ffff);
+      box-shadow: 0 0 20px #00ffff;
+      transform: scale(1.05);
+    }
+  
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      box-shadow: 0 0 10px #cccccc;
+    }
+  
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 20px #ffffff;
+      transform: scale(1.05);
+    }
+  
+    .feedback {
+      margin-top: 10px;
+      font-size: 1.3rem; /* Adjusted font size for feedback */
+      font-weight: bold;
+      color: #00ffff; /* Matches the glow effect */
+      text-shadow: 0 0 10px #000000; /* Subtle shadow for better visibility */
+    }
+  
+    .feedback i {
+      font-size: 1.5rem; /* Adjusted icon size for feedback */
+    }
   </style>
+
+  
 </head>
 <body>
-  <div class="container text-center">
-    <h1>Challenge 2: Phishing Detector</h1>
-    <p>Identify which emails are phishing attempts. You have <span id="timer">60</span> seconds!</p>
-    <div class="row">
-      <!-- Email 1 -->
-      <div class="col-md-6">
-        <div class="email-card" data-type="phishing">
-          <h5>Urgent: Your Account Has Been Compromised</h5>
-          <p>Click <a href="#">here</a> to secure your account immediately.</p>
-          <i class="bi bi-exclamation-triangle"></i>
+  <div class="score-display">
+    Score: <span id="currentScore">0</span>/100
+  </div>
+
+  <div class="container">
+    <h1>Password Cracker Challenge</h1>
+    <p>Crack the passwords by analyzing the clues provided.</p>
+
+    <!-- Timer -->
+    <div class="timer">
+      Time Remaining: <span id="time">300</span> seconds
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress">
+      <div id="progressBar" class="progress-bar bg-success" role="progressbar" style="width: 10%"></div>
+    </div>
+
+    <!-- Questions -->
+    <div id="questionsContainer">
+      <!-- Question 1 -->
+      <div class="question-container" id="question1">
+        <h3>Challenge 1: Basic Password</h3>
+        <div class="badge bg-success">Easy</div>
+        <p>This password follows the standard format: a common word followed by 3 digits.</p>
+        <div class="password-clue">
+          <p>Clue 1: The word is related to what you're doing right now.</p>
+          <p>Clue 2: The digits are the first three numbers of the Fibonacci sequence.</p>
         </div>
+        <input type="text" id="password1" class="form-control mb-3" placeholder="Enter password">
+        <button id="submit1" class="btn btn-primary">Submit</button>
+        <button id="hint1" class="btn btn-secondary ms-2">Get Hint</button>
+        <p id="hintText1" class="hint mt-2"></p>
+        <div id="feedback1" class="feedback"></div>
       </div>
-      <!-- Email 2 -->
-      <div class="col-md-6">
-        <div class="email-card" data-type="legitimate">
-          <h5>Your Monthly Newsletter</h5>
-          <p>Here's your monthly newsletter. Click <a href="#">here</a> to read more.</p>
-          <i class="bi bi-check-circle"></i> 
+
+      <!-- Question 2 -->
+      <div class="question-container" id="question2" style="display:none;">
+        <h3>Challenge 2: Pattern Recognition</h3>
+        <div class="badge bg-warning">Medium</div>
+        <p>This password uses a pattern of alternating letters and numbers.</p>
+        <div class="password-clue">
+          <p>Clue 1: The pattern starts with a lowercase letter, then a number.</p>
+          <p>Clue 2: Each letter is exactly 1 letter after the previous in the alphabet.</p>
+          <p>Clue 3: Each number is the square of its position in the password.</p>
         </div>
+        <input type="text" id="password2" class="form-control mb-3" placeholder="Enter password">
+        <button id="submit2" class="btn btn-primary">Submit</button>
+        <button id="hint2" class="btn btn-secondary ms-2">Get Hint</button>
+        <p id="hintText2" class="hint mt-2"></p>
+        <div id="feedback2" class="feedback"></div>
       </div>
-      <!-- Email 3 -->
-      <div class="col-md-6">
-        <div class="email-card" data-type="phishing">
-          <h5>You've Won a Prize!</h5>
-          <p>Claim your prize by clicking <a href="#">here</a>.</p>
-          <i class="bi bi-exclamation-triangle"></i> 
+      
+      <!-- Question 3 -->
+      <div class="question-container" id="question3" style="display:none;">
+        <h3>Challenge 3: Reversed Digits</h3>
+        <div class="badge bg-warning">Medium</div>
+        <p>Find the password that follows this pattern.</p>
+        <div class="password-clue">
+          <p>Clue 1: The password contains the word "cyber" followed by the digits of PI (reversed).</p>
+          <p>Clue 2: Only use the first 4 digits of PI.</p>
         </div>
+        <input type="text" id="password3" class="form-control mb-3" placeholder="Enter password">
+        <button id="submit3" class="btn btn-primary">Submit</button>
+        <button id="hint3" class="btn btn-secondary ms-2">Get Hint</button>
+        <p id="hintText3" class="hint mt-2"></p>
+        <div id="feedback3" class="feedback"></div>
       </div>
-      <!-- Email 4 -->
-      <div class="col-md-6">
-        <div class="email-card" data-type="legitimate">
-          <h5>Password Reset Request</h5>
-          <p>You requested a password reset. Click <a href="#">here</a> to proceed.</p>
-          <i class="bi bi-check-circle"></i> 
+      
+      <!-- Question 4 -->
+      <div class="question-container" id="question4" style="display:none;">
+        <h3>Challenge 4: Character Substitution</h3>
+        <div class="badge bg-warning">Medium</div>
+        <p>This password uses character substitution (leet speak).</p>
+        <div class="password-clue">
+          <p>Clue 1: The word is "security" but with numbers substituted for certain letters.</p>
+          <p>Clue 2: Common substitutions: e→3, i→1, o→0, a→4, s→5, t→7</p>
         </div>
+        <input type="text" id="password4" class="form-control mb-3" placeholder="Enter password">
+        <button id="submit4" class="btn btn-primary">Submit</button>
+        <button id="hint4" class="btn btn-secondary ms-2">Get Hint</button>
+        <p id="hintText4" class="hint mt-2"></p>
+        <div id="feedback4" class="feedback"></div>
+      </div>
+      
+      <!-- Question 5 -->
+      <div class="question-container" id="question5" style="display:none;">
+        <h3>Challenge 5: Hidden Message</h3>
+        <div class="badge bg-danger">Hard</div>
+        <p>This password is hidden in plain sight.</p>
+        <div class="password-clue">
+          <p>N3v3r g0nn4 g1v3 y0u up.</p>
+          <p>N3v3r g0nn4 l3t y0u d0wn.</p>
+          <p>N3v3r g0nn4 run 4r0und 4nd d3s3rt y0u.</p>
+        </div>
+        <input type="text" id="password5" class="form-control mb-3" placeholder="Enter password">
+        <button id="submit5" class="btn btn-primary">Submit</button>
+        <button id="hint5" class="btn btn-secondary ms-2">Get Hint</button>
+        <p id="hintText5" class="hint mt-2"></p>
+        <div id="feedback5" class="feedback"></div>
+      </div>
+      
+      <!-- Question 6 -->
+      <div class="question-container" id="question6" style="display:none;">
+        <h3>Challenge 6: Base64 Encoded</h3>
+        <div class="badge bg-danger">Hard</div>
+        <p>This password is encoded in Base64.</p>
+        <div class="password-clue">
+          <p>Encoded: aGFja2VybWFuMTIz</p>
+        </div>
+        <input type="text" id="password6" class="form-control mb-3" placeholder="Enter password">
+        <button id="submit6" class="btn btn-primary">Submit</button>
+        <button id="hint6" class="btn btn-secondary ms-2">Get Hint</button>
+        <p id="hintText6" class="hint mt-2"></p>
+        <div id="feedback6" class="feedback"></div>
+      </div>
+      
+      <!-- Question 7 -->
+      <div class="question-container" id="question7" style="display:none;">
+        <h3>Challenge 7: Common Password Pattern</h3>
+        <div class="badge bg-warning">Medium</div>
+        <p>This password follows one of the most common patterns used by people.</p>
+        <div class="password-clue">
+          <p>Clue 1: It starts with a capitalized month of the year.</p>
+          <p>Clue 2: It's followed by the current year.</p>
+          <p>Clue 3: It ends with an exclamation mark.</p>
+        </div>
+        <input type="text" id="password7" class="form-control mb-3" placeholder="Enter password">
+        <button id="submit7" class="btn btn-primary">Submit</button>
+        <button id="hint7" class="btn btn-secondary ms-2">Get Hint</button>
+        <p id="hintText7" class="hint mt-2"></p>
+        <div id="feedback7" class="feedback"></div>
+      </div>
+      
+      <!-- Question 8 -->
+      <div class="question-container" id="question8" style="display:none;">
+        <h3>Challenge 8: MD5 Hash</h3>
+        <div class="badge bg-danger">Hard</div>
+        <p>Find the original password that produces this MD5 hash.</p>
+        <div class="password-clue">
+          <p>MD5: 5f4dcc3b5aa765d61d8327deb882cf99</p>
+          <p>Clue: It's one of the most common passwords ever.</p>
+        </div>
+        <input type="text" id="password8" class="form-control mb-3" placeholder="Enter password">
+        <button id="submit8" class="btn btn-primary">Submit</button>
+        <button id="hint8" class="btn btn-secondary ms-2">Get Hint</button>
+        <p id="hintText8" class="hint mt-2"></p>
+        <div id="feedback8" class="feedback"></div>
+      </div>
+      
+      <!-- Question 9 -->
+      <div class="question-container" id="question9" style="display:none;">
+        <h3>Challenge 9: Keyboard Pattern</h3>
+        <div class="badge bg-warning">Medium</div>
+        <p>This password follows a pattern on the keyboard.</p>
+        <div class="password-clue">
+          <p>Clue 1: It starts at the letter 'q'.</p>
+          <p>Clue 2: It follows a diagonal pattern down and to the right.</p>
+          <p>Clue 3: It consists of 7 characters.</p>
+        </div>
+        <input type="text" id="password9" class="form-control mb-3" placeholder="Enter password">
+        <button id="submit9" class="btn btn-primary">Submit</button>
+        <button id="hint9" class="btn btn-secondary ms-2">Get Hint</button>
+        <p id="hintText9" class="hint mt-2"></p>
+        <div id="feedback9" class="feedback"></div>
+      </div>
+      
+      <!-- Question 10 -->
+      <div class="question-container" id="question10" style="display:none;">
+        <h3>Challenge 10: The Master Password</h3>
+        <div class="badge bg-danger">Hard</div>
+        <p>This final password combines multiple techniques.</p>
+        <div class="password-clue">
+          <p>Clue 1: It starts with the first letter of each previous password (in order).</p>
+          <p>Clue 2: It ends with the special sequence: $#@!</p>
+        </div>
+        <input type="text" id="password10" class="form-control mb-3" placeholder="Enter password">
+        <button id="submit10" class="btn btn-primary">Submit</button>
+        <button id="hint10" class="btn btn-secondary ms-2">Get Hint</button>
+        <p id="hintText10" class="hint mt-2"></p>
+        <div id="feedback10" class="feedback"></div>
+      </div>
+      
+      <!-- Results -->
+      <div class="results-card" id="results" style="display:none;">
+        <h2>Challenge Complete!</h2>
+        <h3>Your Score: <span id="finalScore">0</span>/100</h3>
+        <div class="progress mb-4">
+          <div id="finalProgressBar" class="progress-bar bg-success" role="progressbar" style="width: 0%"></div>
+        </div>
+        <p>You've completed the Password Cracker challenge!</p>
+        <div id="scoreBreakdown"></div>
+        <button class="btn btn-primary mt-3" onclick="window.location.href='/hacker-quest'">Return to Challenges</button>
+        <button class="btn btn-success mt-3 ms-2" onclick="location.reload()">Try Again</button>
       </div>
     </div>
-    <div class="result" id="result"></div>
+
+    <!-- Navigation Buttons -->
+    <div class="navigation">
+      <button id="prevButton" class="btn btn-secondary btn-prev" style="visibility: hidden;">Previous</button>
+      <button id="nextButton" class="btn btn-primary btn-next">Next</button>
+    </div>
   </div>
 
   <script>
+    // Password answers
+    const answers = {
+      1: "hacker123",
+      2: "a1b4c9d16",
+      3: "cyber1415",
+      4: "53cur17y",
+      5: "rickroll",
+      6: "hackerman123",
+      7: "April2025!",
+      8: "password",
+      9: "qwsxedc",
+      10: "hs5rhacp$#@!"
+    };
+    
+    // Hints
+    const hints = {
+      1: "Think about hacking plus 1, 2, 3",
+      2: "It starts with 'a1', then 'b' and the square of 2, etc.",
+      3: "PI starts with 3.1415..., reversed would be ...",
+      4: "Replace the letters in 'security' with their number equivalents",
+      5: "Look at the first letters of each line, it's a famous internet meme",
+      6: "You need to decode the Base64 string to get the plaintext",
+      7: "The current month is April and the year is 2025",
+      8: "It's literally the word 'password'",
+      9: "On a QWERTY keyboard, start at Q and go diagonally: Q, W, S, X...",
+      10: "The first letters are h, a, c, k, e, r, m, a, n, q"
+    };
+
+    let currentQuestion = 1;
+    let totalQuestions = 10;
     let score = 0;
-    let timeLeft = 60;
-    const timerElement = document.getElementById('timer');
-    const resultElement = document.getElementById('result');
+    let questionScores = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0
+    };
+    let timeLeft = 300;
 
     // Timer
     const timer = setInterval(() => {
       timeLeft--;
-      timerElement.textContent = timeLeft;
+      document.getElementById('time').textContent = timeLeft;
       if (timeLeft <= 0) {
         clearInterval(timer);
-        endGame();
+        showResults();
       }
     }, 1000);
 
-    // Email click event
-    document.querySelectorAll('.email-card').forEach(card => {
-      card.addEventListener('click', () => {
-        if (card.dataset.type === 'phishing') {
-          card.classList.add('correct');
-          score += 10;
-          resultElement.textContent = `Correct! This is a phishing attempt. Score: ${score}`;
-        } else {
-          card.classList.add('incorrect');
-          score -= 5;
-          resultElement.textContent = `Incorrect! This email is safe. Score: ${score}`;
-        }
-      });
+    // Update progress bar
+    function updateProgressBar() {
+      const progress = (currentQuestion / totalQuestions) * 100;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+    }
+
+    // Show question
+    function showQuestion(questionNumber) {
+      // Hide all questions
+      for (let i = 1; i <= totalQuestions; i++) {
+        document.getElementById(`question${i}`).style.display = 'none';
+      }
+      
+      // Show current question
+      document.getElementById(`question${questionNumber}`).style.display = 'block';
+      
+      // Update navigation buttons
+      if (questionNumber === 1) {
+        document.getElementById('prevButton').style.visibility = 'hidden';
+      } else {
+        document.getElementById('prevButton').style.visibility = 'visible';
+      }
+      
+      if (questionNumber === totalQuestions) {
+        document.getElementById('nextButton').textContent = 'Finish';
+      } else {
+        document.getElementById('nextButton').textContent = 'Next';
+      }
+      
+      updateProgressBar();
+    }
+
+    // Show results
+    function showResults() {
+      // Hide all questions
+      for (let i = 1; i <= totalQuestions; i++) {
+        document.getElementById(`question${i}`).style.display = 'none';
+      }
+      
+      // Show results
+      document.getElementById('results').style.display = 'block';
+      document.getElementById('finalScore').textContent = score;
+      document.getElementById('finalProgressBar').style.width = `${score}%`;
+      
+      // Hide navigation
+      document.getElementById('prevButton').style.visibility = 'hidden';
+      document.getElementById('nextButton').style.visibility = 'hidden';
+      
+      // Generate score breakdown
+      let breakdownHTML = '<h4>Score Breakdown:</h4><ul class="list-group">';
+      for (let i = 1; i <= totalQuestions; i++) {
+        let badgeClass = questionScores[i] > 0 ? 'bg-success' : 'bg-danger';
+        breakdownHTML += `<li class="list-group-item d-flex justify-content-between align-items-center">
+          Question ${i}
+          <span class="badge ${badgeClass} rounded-pill">${questionScores[i]} points</span>
+        </li>`;
+      }
+      breakdownHTML += '</ul>';
+      document.getElementById('scoreBreakdown').innerHTML = breakdownHTML;
+    }
+
+    // Next button click
+    document.getElementById('nextButton').addEventListener('click', () => {
+      if (currentQuestion === totalQuestions) {
+        showResults();
+      } else {
+        currentQuestion++;
+        showQuestion(currentQuestion);
+      }
     });
 
-    // End game function
-    function endGame() {
-      resultElement.textContent = `Time's up! Your final score is ${score}.`;
-      document.querySelectorAll('.email-card').forEach(card => {
-        card.removeEventListener('click', () => {});
+    // Previous button click
+    document.getElementById('prevButton').addEventListener('click', () => {
+      if (currentQuestion > 1) {
+        currentQuestion--;
+        showQuestion(currentQuestion);
+      }
+    });
+
+    // Submit buttons click events
+    for (let i = 1; i <= totalQuestions; i++) {
+      document.getElementById(`submit${i}`).addEventListener('click', () => {
+        const userInput = document.getElementById(`password${i}`).value;
+        if (userInput.toLowerCase() === answers[i].toLowerCase()) {
+          document.getElementById(`feedback${i}`).innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
+          
+          // Award points if not already awarded
+          if (questionScores[i] === 0) {
+            // Award 10 points for easy, 10 for medium, 10 for hard
+            const points = 10;
+            questionScores[i] = points;
+            score += points;
+            document.getElementById('currentScore').textContent = score;
+          }
+        } else {
+          document.getElementById(`feedback${i}`).innerHTML = '<i class="bi bi-x-circle-fill text-danger"></i>';
+        }
       });
     }
+
+    // Hint buttons click events
+    for (let i = 1; i <= totalQuestions; i++) {
+      document.getElementById(`hint${i}`).addEventListener('click', () => {
+        document.getElementById(`hintText${i}`).innerText = hints[i];
+      });
+    }
+
+    // Initialize
+    showQuestion(1);
   </script>
 </body>
 </html>
