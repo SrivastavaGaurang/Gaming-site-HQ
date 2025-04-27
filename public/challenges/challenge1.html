@@ -3,40 +3,134 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Challenge 2: Phishing Detector</title>
+  <title>Challenge 1: Phishing Detector</title>
  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   
   <style>
+    :root {
+      --primary-color: #00ffcc;
+      --secondary-color: #0066ff;
+      --accent-color: #5e17eb;
+      --dark-bg: rgba(0, 0, 0, 0.85);
+      --success-color: #28a745;
+      --danger-color: #dc3545;
+      --text-light: #ffffff;
+      --text-secondary: #e0e0e0;
+    }
+    
     body {
       background: url('../3835324.jpg') no-repeat center center fixed;
-      background-size: cover; /* Ensures the image covers the entire viewport */
-      color: #ffffff; /* Light text for better contrast with the dark background */
+      background-size: cover;
+      color: var(--text-light);
       font-family: 'Poppins', sans-serif;
       min-height: 100vh;
       margin: 0;
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
     }
   
-    h1 {
-      font-size: 2.5rem;
+    .main-container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+    
+    h1, h2 {
+      font-family: 'Orbitron', sans-serif;
       font-weight: bold;
-      text-shadow: 0 0 10px #000000, 0 0 20px #000000; /* Dark shadow for better visibility */
+      text-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(0, 0, 0, 0.5);
       margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    
+    h1 {
+      font-size: 2.8rem;
+      color: var(--primary-color);
+    }
+    
+    h2 {
+      font-size: 2rem;
+      margin-top: 20px;
     }
   
     p {
       font-size: 1.2rem;
-      color: #e0e0e0; /* Softer gray for readability */
-      margin-bottom: 30px;
-      text-shadow: 0 0 5px #000000; /* Subtle shadow for better visibility */
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+      line-height: 1.6;
     }
-  
+    
+    .welcome-screen {
+      background: var(--dark-bg);
+      border-radius: 15px;
+      border: 1px solid var(--primary-color);
+      padding: 40px 30px;
+      margin: 20px auto;
+      box-shadow: 0 0 30px rgba(0, 255, 204, 0.3);
+      max-width: 800px;
+      text-align: center;
+    }
+    
+    .about-screen {
+      background: var(--dark-bg);
+      border-radius: 15px;
+      border: 1px solid var(--primary-color);
+      padding: 40px 30px;
+      margin: 20px auto;
+      box-shadow: 0 0 30px rgba(0, 255, 204, 0.3);
+      max-width: 800px;
+      display: none;
+      animation: fadeIn 0.5s;
+    }
+    
+    .about-content {
+      text-align: left;
+    }
+    
+    .about-content h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary-color);
+      margin-top: 25px;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+    
+    .about-content ul {
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    
+    .about-content li {
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    
+    .game-screen {
+      display: none;
+      animation: fadeIn 0.5s;
+    }
+    
     .progress-container {
       margin: 20px 0;
       width: 100%;
@@ -45,7 +139,7 @@
   
     .progress {
       height: 15px;
-      background-color: rgba(255, 255, 255, 0.2); /* Subtle background for the progress bar */
+      background-color: rgba(255, 255, 255, 0.2);
       border-radius: 10px;
       overflow: hidden;
       margin-bottom: 30px;
@@ -53,116 +147,226 @@
   
     .progress-bar {
       height: 100%;
-      background: linear-gradient(90deg, #00ffcc, #0066ff); /* Cool gradient for progress bar */
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
       transition: width 0.3s ease;
     }
   
     .email-card {
-      background: rgba(0, 0, 0, 0.7); /* Semi-transparent black for better readability */
+      background: var(--dark-bg);
       border-radius: 15px;
-      padding: 20px;
-      margin: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow effect */
+      padding: 25px;
+      margin: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
   
     .email-card:hover {
-      transform: scale(1.05);
+      transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+      border-color: var(--primary-color);
     }
   
     .email-card.correct {
-      border: 2px solid #28a745;
-      box-shadow: 0 0 15px #28a745;
+      border: 2px solid var(--success-color);
+      box-shadow: 0 0 15px var(--success-color);
     }
   
     .email-card.incorrect {
-      border: 2px solid #dc3545;
-      box-shadow: 0 0 15px #dc3545;
+      border: 2px solid var(--danger-color);
+      box-shadow: 0 0 15px var(--danger-color);
     }
   
     .email-card h5 {
       font-size: 1.5rem;
       font-weight: bold;
-      color: #ffffff; /* Light text for better contrast */
-      margin-bottom: 10px;
-      text-shadow: 0 0 5px #000000; /* Subtle shadow for better visibility */
+      color: var(--text-light);
+      margin-bottom: 15px;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
     }
   
     .email-card p {
       font-size: 1rem;
-      color: #cccccc; /* Softer gray for readability */
-      text-shadow: 0 0 5px #000000; /* Subtle shadow for better visibility */
+      color: #cccccc;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
     }
   
     .result {
       margin-top: 20px;
       font-size: 1.2rem;
       font-weight: bold;
-      color: #00ffcc; /* Cool tone for feedback */
-      text-shadow: 0 0 10px #000000; /* Subtle shadow for better visibility */
+      color: var(--primary-color);
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.6);
     }
   
     .timer {
       font-size: 1.5rem;
       font-weight: bold;
-      color: #00ffcc; /* Cool tone for timer */
+      color: var(--primary-color);
       margin-bottom: 20px;
-      text-shadow: 0 0 10px #000000; /* Subtle shadow for better visibility */
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.6);
     }
   
     .final-score {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: bold;
-      color: #00ffcc; /* Cool tone for final score */
-      text-shadow: 0 0 10px #000000, 0 0 20px #000000; /* Subtle shadow for better visibility */
+      color: var(--primary-color);
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.8);
       margin: 30px 0;
     }
   
     .btn {
-      padding: 10px 20px;
-      font-size: 1rem;
+      padding: 12px 30px;
+      font-size: 1.1rem;
       font-weight: bold;
       border: none;
-      border-radius: 5px;
+      border-radius: 50px;
       transition: all 0.3s ease;
       cursor: pointer;
+      margin: 10px 5px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
   
     .btn-primary {
-      background: linear-gradient(90deg, #00ffcc, #0066ff); /* Cool gradient */
-      color: #ffffff;
-      box-shadow: 0 0 10px #00ffcc;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      color: #000;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
     }
   
     .btn-primary:hover {
-      background: linear-gradient(90deg, #0066ff, #00ffcc);
-      box-shadow: 0 0 20px #00ffcc;
-      transform: scale(1.05);
+      background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+      box-shadow: 0 0 25px rgba(0, 255, 204, 0.7);
+      transform: translateY(-3px);
     }
   
     .btn-success {
-      background: linear-gradient(90deg, #28a745, #00ff00); /* Green for success */
-      color: #ffffff;
-      box-shadow: 0 0 10px #28a745;
+      background: linear-gradient(90deg, #28a745, #00ff00);
+      color: #000;
+      box-shadow: 0 0 15px rgba(40, 167, 69, 0.5);
     }
   
     .btn-success:hover {
       background: linear-gradient(90deg, #00ff00, #28a745);
-      box-shadow: 0 0 20px #28a745;
-      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(40, 167, 69, 0.7);
+      transform: translateY(-3px);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+    
+    .btn-outline:hover {
+      background: rgba(0, 255, 204, 0.1);
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+      transform: translateY(-3px);
     }
   
     .hidden {
       display: none;
     }
+    
+    .phishing-examples {
+      text-align: left;
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      border-left: 4px solid var(--primary-color);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .tip-box {
+      background: rgba(94, 23, 235, 0.2);
+      border-left: 4px solid var(--accent-color);
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 5px;
+    }
+    
+    .tip-box h4 {
+      color: var(--accent-color);
+      margin-bottom: 10px;
+    }
   </style>
   
 </head>
 <body>
-  <div class="container text-center">
-    <h1>Challenge 2: Phishing Detector</h1>
+  <!-- Welcome Screen -->
+  <div class="main-container welcome-screen" id="welcomeScreen">
+    <h1>PHISHING DETECTOR</h1>
+    <p>Test your skills at identifying deceptive phishing emails from legitimate messages.</p>
+    <button id="startButton" class="btn btn-primary">Start Challenge</button>
+  </div>
+  
+  <!-- About Screen -->
+  <div class="main-container about-screen" id="aboutScreen">
+    <h1>PHISHING DETECTOR</h1>
+    
+    <div class="about-content">
+      <h3>What is Phishing?</h3>
+      <p>Phishing is a type of cyber attack where attackers disguise themselves as trustworthy entities to steal sensitive information such as usernames, passwords, credit card details, or other personal data. These attacks typically come through email, text messages, or fake websites.</p>
+      
+      <div class="tip-box">
+        <h4>Did you know?</h4>
+        <p>According to recent reports, over 90% of security breaches involve phishing attacks in some form. Learning to identify phishing attempts is one of the most valuable cybersecurity skills you can develop.</p>
+      </div>
+      
+      <h3>Challenge Overview</h3>
+      <p>In this challenge, you'll face a series of emails and must determine which ones are legitimate and which are phishing attempts. You'll have 60 seconds to complete the challenge.</p>
+      
+      <h3>How to Play</h3>
+      <ul>
+        <li>You'll be presented with pairs of emails</li>
+        <li>Click on the email you believe is a <strong>phishing attempt</strong></li>
+        <li>Earn 10 points for each correct identification</li>
+        <li>Lose 5 points for each incorrect choice</li>
+        <li>Complete all questions within the time limit</li>
+      </ul>
+      
+      <h3>Common Phishing Red Flags</h3>
+      <div class="phishing-examples">
+        <ul>
+          <li><strong>Urgency:</strong> Messages creating a sense of panic or urgency ("Act now!" "Immediate action required")</li>
+          <li><strong>Generic Greetings:</strong> Like "Dear Customer" instead of your name</li>
+          <li><strong>Suspicious Links:</strong> URLs that don't match the claimed organization</li>
+          <li><strong>Requests for Personal Information:</strong> Legitimate organizations rarely ask for sensitive information via email</li>
+          <li><strong>Poor Grammar/Spelling:</strong> Professional organizations use proper grammar and spelling</li>
+          <li><strong>Too Good to Be True:</strong> Unrealistic offers, prizes, or rewards</li>
+        </ul>
+      </div>
+      
+      <h3>What You'll Learn</h3>
+      <p>Through this challenge, you'll develop critical skills for cybersecurity:</p>
+      <ul>
+        <li>How to quickly identify phishing attempts</li>
+        <li>Common social engineering tactics used by attackers</li>
+        <li>Best practices for email security</li>
+        <li>How to protect yourself from identity theft</li>
+      </ul>
+    </div>
+    
+    <button id="letsGoButton" class="btn btn-success">Let's Go!</button>
+    <button id="backButton" class="btn btn-outline">Back</button>
+  </div>
+
+  <!-- Game Screen -->
+  <div class="main-container game-screen" id="gameScreen">
+    <h1>PHISHING DETECTOR</h1>
     <p>Identify which emails are phishing attempts. You have <span id="timer">60</span> seconds!</p>
     
     <div class="progress-container">
@@ -183,6 +387,7 @@
     <div id="finalScoreContainer" class="hidden">
       <div class="final-score">Your final score: <span id="finalScore">0</span> out of 100</div>
       <button onclick="window.location.href='/hacker-quest'" class="btn btn-success">Back to Challenges</button>
+      <button onclick="location.reload()" class="btn btn-primary">Try Again</button>
     </div>
   </div>
 
@@ -257,6 +462,13 @@
     let timeLeft = 60;
     let timerInterval;
     
+    // DOM elements
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const aboutScreen = document.getElementById('aboutScreen');
+    const gameScreen = document.getElementById('gameScreen');
+    const startButton = document.getElementById('startButton');
+    const letsGoButton = document.getElementById('letsGoButton');
+    const backButton = document.getElementById('backButton');
     const timerElement = document.getElementById('timer');
     const resultElement = document.getElementById('result');
     const emailContainer = document.getElementById('emailContainer');
@@ -266,8 +478,34 @@
     const finalScoreContainer = document.getElementById('finalScoreContainer');
     const finalScoreElement = document.getElementById('finalScore');
     
+    // Event listeners for navigation
+    startButton.addEventListener('click', showAboutScreen);
+    letsGoButton.addEventListener('click', startGame);
+    backButton.addEventListener('click', showWelcomeScreen);
+    
+    // Navigation functions
+    function showWelcomeScreen() {
+      welcomeScreen.style.display = 'block';
+      aboutScreen.style.display = 'none';
+      gameScreen.style.display = 'none';
+    }
+    
+    function showAboutScreen() {
+      welcomeScreen.style.display = 'none';
+      aboutScreen.style.display = 'block';
+      gameScreen.style.display = 'none';
+    }
+    
     // Initialize game
-    function initGame() {
+    function startGame() {
+      aboutScreen.style.display = 'none';
+      gameScreen.style.display = 'block';
+      
+      // Reset game state
+      currentQuestion = 0;
+      score = 0;
+      timeLeft = 60;
+      
       // Start timer
       timerInterval = setInterval(() => {
         timeLeft--;
@@ -351,9 +589,6 @@
       finalScoreElement.textContent = score;
       finalScoreContainer.classList.remove('hidden');
     }
-    
-    // Initialize game when page loads
-    window.onload = initGame;
   </script>
 </body>
 </html>

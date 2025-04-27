@@ -6,522 +6,769 @@
   <title>Password Cracker Challenge</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   
   <style>
+    :root {
+      --primary-color: #00ffff;
+      --secondary-color: #0066ff;
+      --accent-color: #ff6b6b;
+      --dark-bg: rgba(0, 0, 0, 0.85);
+      --text-light: #ffffff;
+      --text-secondary: #e0e0e0;
+    }
+    
     body {
       background: url('../840843081452.jpg') no-repeat center center fixed;
-      background-size: cover; /* Ensures the image covers the entire viewport */
-      color: #e0e0e0; /* Softer gray for better readability */
+      background-size: cover;
+      color: var(--text-light);
       font-family: 'Poppins', sans-serif;
       min-height: 100vh;
       margin: 0;
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
     }
   
-    .container {
-      margin-top: 30px;
-      text-align: center;
-      padding: 20px 25px; /* Adjusted padding for a balanced card size */
-      max-width: 550px; /* Medium-sized card */
+    .main-container {
       width: 90%;
-      background: rgba(0, 0, 0, 0.85); /* Semi-transparent black for better readability */
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow effect */
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      text-align: center;
     }
-  
-    h1 {
-      font-size: 2.2rem; /* Adjusted font size for the title */
+    
+    .welcome-screen {
+      background: var(--dark-bg);
+      border-radius: 20px;
+      border: 1px solid var(--primary-color);
+      padding: 40px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      animation: glow 3s infinite alternate;
+    }
+    
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      }
+      to {
+        box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+      }
+    }
+    
+    .about-screen {
+      background: var(--dark-bg);
+      border-radius: 20px;
+      border: 1px solid var(--primary-color);
+      padding: 40px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      display: none;
+      animation: fadeIn 0.5s;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    
+    .game-screen {
+      display: none;
+      animation: fadeIn 0.5s;
+    }
+    
+    h1, h2 {
+      font-family: 'Orbitron', sans-serif;
       font-weight: bold;
-      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; /* Cool blue glow effect */
+      text-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    
+    h1 {
+      font-size: 2.6rem;
+      color: var(--primary-color);
+      text-transform: uppercase;
+    }
+    
+    h2 {
+      font-size: 2rem;
+      margin-top: 20px;
+    }
+    
+    .about-content {
+      text-align: left;
+    }
+    
+    .about-content h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary-color);
+      margin-top: 25px;
       margin-bottom: 15px;
+      font-size: 1.5rem;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+      padding-bottom: 8px;
+    }
+    
+    .about-content ul {
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    
+    .about-content li {
+      margin-bottom: 10px;
+      line-height: 1.5;
     }
   
     p {
-      font-size: 1.1rem; /* Slightly larger font size for readability */
-      color: #cccccc; /* Softer gray for readability */
+      font-size: 1.2rem;
+      color: var(--text-secondary);
       margin-bottom: 20px;
+      line-height: 1.6;
     }
-  
-    .timer {
-      font-size: 1.3rem; /* Adjusted font size for the timer */
-      margin-bottom: 15px;
-      color: #00ffff; /* Cool blue tone for the timer */
+    
+    .score-display {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 1.2rem;
       font-weight: bold;
-      text-shadow: 0 0 10px #000000; /* Subtle shadow for better visibility */
+      color: var(--primary-color);
+      box-shadow: 0 0 10px var(--primary-color);
+      z-index: 100;
     }
-  
-    .progress {
-      height: 12px; /* Adjusted height for the progress bar */
-      margin: 15px 0;
-      background-color: rgba(255, 255, 255, 0.1); /* Subtle background for the progress bar */
-      border-radius: 10px;
-      overflow: hidden;
-    }
-  
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, #00ffff, #0066ff); /* Cool gradient for progress bar */
-      transition: width 0.3s ease;
-    }
-  
-    .question-container {
-      background: rgba(0, 0, 0, 0.9); /* Darker semi-transparent black for better readability */
-      border-radius: 15px;
-      padding: 20px; /* Adjusted padding for a balanced card size */
+    
+    .timer {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
       margin-bottom: 20px;
-      box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3); /* Subtle glow effect */
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.6);
+    }
+    
+    .btn {
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      margin: 10px 5px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      color: #000;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    }
+    
+    .btn-primary:hover {
+      background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
+      transform: translateY(-3px);
+    }
+    
+    .btn-success {
+      background: linear-gradient(90deg, #28a745, #00ff00);
+      color: #000;
+      box-shadow: 0 0 15px rgba(40, 167, 69, 0.5);
+    }
+    
+    .btn-success:hover {
+      background: linear-gradient(90deg, #00ff00, #28a745);
+      box-shadow: 0 0 25px rgba(40, 167, 69, 0.7);
+      transform: translateY(-3px);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+    
+    .btn-outline:hover {
+      background: rgba(0, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      transform: translateY(-3px);
+    }
+    
+    .password-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background: var(--dark-bg);
+      border-radius: 15px;
+      border: 1px solid var(--primary-color);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+    
+    .password-display {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 8px;
+      padding: 15px;
+      margin: 15px 0;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      color: var(--primary-color);
+      text-shadow: 0 0 10px var(--primary-color);
+      overflow-wrap: break-word;
+    }
+    
+    .character-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 15px 0;
+    }
+    
+    .char-btn {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      border: 1px solid var(--primary-color);
+      background: rgba(0, 0, 0, 0.7);
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .char-btn:hover {
+      background: rgba(0, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+    
+    .char-btn.selected {
+      background: var(--primary-color);
+      color: #000;
+      box-shadow: 0 0 15px var(--primary-color);
+    }
+    
+    .hint {
+      font-style: italic;
+      margin: 15px 0;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      border-left: 3px solid var(--accent-color);
       text-align: left;
     }
-  
-    .question-container h3 {
-      font-size: 1.6rem; /* Adjusted font size for question titles */
-      color: #00ffff; /* Cool blue tone for question titles */
-      margin-bottom: 10px;
-      text-shadow: 0 0 10px #000000; /* Subtle shadow for better visibility */
-    }
-  
-    input {
+    
+    .progress-container {
+      margin: 20px 0;
       width: 100%;
-      padding: 12px; /* Adjusted padding for inputs */
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.1); /* Subtle input background */
-      color: #ffffff;
-      font-size: 1rem;
-      outline: none;
-      text-align: center;
-      transition: all 0.3s ease;
+      max-width: 600px;
     }
-  
-    input:focus {
-      background: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 10px #00ffff; /* Matches the glow effect */
+    
+    .progress {
+      height: 15px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
     }
-  
-    button {
-      padding: 10px 20px; /* Adjusted padding for buttons */
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem; /* Adjusted font size for buttons */
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      transition: width 0.3s ease;
     }
-  
-    .btn-primary {
-      background: linear-gradient(90deg, #00ffff, #0066ff); /* Cool gradient */
-      color: #ffffff;
-      box-shadow: 0 0 10px #00ffff;
-    }
-  
-    .btn-primary:hover {
-      background: linear-gradient(90deg, #0066ff, #00ffff);
-      box-shadow: 0 0 20px #00ffff;
-      transform: scale(1.05);
-    }
-  
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      box-shadow: 0 0 10px #cccccc;
-    }
-  
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 20px #ffffff;
-      transform: scale(1.05);
-    }
-  
+    
     .feedback {
-      margin-top: 10px;
-      font-size: 1.3rem; /* Adjusted font size for feedback */
+      font-size: 1.2rem;
       font-weight: bold;
-      color: #00ffff; /* Matches the glow effect */
-      text-shadow: 0 0 10px #000000; /* Subtle shadow for better visibility */
+      padding: 10px;
+      margin: 15px 0;
+      border-radius: 10px;
+      transition: all 0.3s ease;
     }
-  
-    .feedback i {
-      font-size: 1.5rem; /* Adjusted icon size for feedback */
+    
+    .feedback.success {
+      background: rgba(40, 167, 69, 0.2);
+      border: 1px solid #28a745;
+      color: #28a745;
+    }
+    
+    .feedback.error {
+      background: rgba(220, 53, 69, 0.2);
+      border: 1px solid #dc3545;
+      color: #dc3545;
+    }
+    
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+    
+    .stat-box {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+    }
+    
+    .final-score {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.8);
+      margin: 30px 0;
+    }
+    
+    .tip-box {
+      background: rgba(0, 102, 255, 0.2);
+      border-left: 4px solid var(--secondary-color);
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 5px;
+      text-align: left;
+    }
+    
+    .tip-box h4 {
+      color: var(--secondary-color);
+      margin-bottom: 10px;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .hidden {
+      display: none;
     }
   </style>
-
-  
 </head>
 <body>
-  <div class="score-display">
-    Score: <span id="currentScore">0</span>/100
+  <!-- Welcome Screen -->
+  <div class="main-container welcome-screen" id="welcomeScreen">
+    <h1>PASSWORD CRACKER</h1>
+    <p>Test your skills at cracking passwords using common patterns and techniques.</p>
+    <button id="startButton" class="btn btn-primary">Start Challenge</button>
+  </div>
+  
+  <!-- About Screen -->
+  <div class="main-container about-screen" id="aboutScreen">
+    <h1>PASSWORD CRACKER</h1>
+    
+    <div class="about-content">
+      <h3>What is Password Cracking?</h3>
+      <p>Password cracking is the process of attempting to gain unauthorized access to restricted systems by systematically checking all possible passwords until the correct one is found. Ethical hackers use password cracking techniques to test security and identify vulnerabilities.</p>
+      
+      <div class="tip-box">
+        <h4>Did you know?</h4>
+        <p>According to recent research, over 80% of data breaches involve weak or stolen passwords. Understanding password vulnerabilities is crucial for improving security practices.</p>
+      </div>
+      
+      <h3>Challenge Overview</h3>
+      <p>In this challenge, you'll attempt to crack passwords by identifying patterns and common substitutions. You'll have a limited number of attempts to guess each password correctly.</p>
+      
+      <h3>How to Play</h3>
+      <ul>
+        <li>You'll be presented with a password to crack</li>
+        <li>Use the character buttons to select letters, numbers, or symbols</li>
+        <li>Each correct position in the password will be revealed</li>
+        <li>You have a limited number of attempts to guess the full password</li>
+        <li>Hints will be provided to help guide your guessing</li>
+        <li>Score points based on how quickly you solve each password</li>
+      </ul>
+      
+      <h3>Common Password Patterns</h3>
+      <ul>
+        <li><strong>Character Substitutions:</strong> Like replacing 'a' with '@', 'e' with '3', 'i' with '1', etc.</li>
+        <li><strong>Adding Numbers:</strong> Especially birth years, current year, or sequential numbers</li>
+        <li><strong>Word + Number Patterns:</strong> Common words followed by numbers (e.g., "password123")</li>
+        <li><strong>Capitalization:</strong> Often just the first letter is capitalized</li>
+        <li><strong>Keyboard Patterns:</strong> Sequential keys like "qwerty" or "123456"</li>
+      </ul>
+      
+      <h3>What You'll Learn</h3>
+      <p>Through this challenge, you'll develop critical skills for cybersecurity:</p>
+      <ul>
+        <li>How to identify common password patterns</li>
+        <li>Why certain passwords are more vulnerable than others</li>
+        <li>Best practices for creating strong passwords</li>
+        <li>How pattern recognition can be used to improve security</li>
+      </ul>
+    </div>
+    
+    <button id="letsGoButton" class="btn btn-success">Let's Go!</button>
+    <button id="backButton" class="btn btn-outline">Back</button>
   </div>
 
-  <div class="container">
-    <h1>Password Cracker Challenge</h1>
-    <p>Crack the passwords by analyzing the clues provided.</p>
-
-    <!-- Timer -->
-    <div class="timer">
-      Time Remaining: <span id="time">300</span> seconds
-    </div>
-
-    <!-- Progress Bar -->
-    <div class="progress">
-      <div id="progressBar" class="progress-bar bg-success" role="progressbar" style="width: 10%"></div>
-    </div>
-
-    <!-- Questions -->
-    <div id="questionsContainer">
-      <!-- Question 1 -->
-      <div class="question-container" id="question1">
-        <h3>Challenge 1: Basic Password</h3>
-        <div class="badge bg-success">Easy</div>
-        <p>This password follows the standard format: a common word followed by 3 digits.</p>
-        <div class="password-clue">
-          <p>Clue 1: The word is related to what you're doing right now.</p>
-          <p>Clue 2: The digits are the first three numbers of the Fibonacci sequence.</p>
-        </div>
-        <input type="text" id="password1" class="form-control mb-3" placeholder="Enter password">
-        <button id="submit1" class="btn btn-primary">Submit</button>
-        <button id="hint1" class="btn btn-secondary ms-2">Get Hint</button>
-        <p id="hintText1" class="hint mt-2"></p>
-        <div id="feedback1" class="feedback"></div>
-      </div>
-
-      <!-- Question 2 -->
-      <div class="question-container" id="question2" style="display:none;">
-        <h3>Challenge 2: Pattern Recognition</h3>
-        <div class="badge bg-warning">Medium</div>
-        <p>This password uses a pattern of alternating letters and numbers.</p>
-        <div class="password-clue">
-          <p>Clue 1: The pattern starts with a lowercase letter, then a number.</p>
-          <p>Clue 2: Each letter is exactly 1 letter after the previous in the alphabet.</p>
-          <p>Clue 3: Each number is the square of its position in the password.</p>
-        </div>
-        <input type="text" id="password2" class="form-control mb-3" placeholder="Enter password">
-        <button id="submit2" class="btn btn-primary">Submit</button>
-        <button id="hint2" class="btn btn-secondary ms-2">Get Hint</button>
-        <p id="hintText2" class="hint mt-2"></p>
-        <div id="feedback2" class="feedback"></div>
-      </div>
-      
-      <!-- Question 3 -->
-      <div class="question-container" id="question3" style="display:none;">
-        <h3>Challenge 3: Reversed Digits</h3>
-        <div class="badge bg-warning">Medium</div>
-        <p>Find the password that follows this pattern.</p>
-        <div class="password-clue">
-          <p>Clue 1: The password contains the word "cyber" followed by the digits of PI (reversed).</p>
-          <p>Clue 2: Only use the first 4 digits of PI.</p>
-        </div>
-        <input type="text" id="password3" class="form-control mb-3" placeholder="Enter password">
-        <button id="submit3" class="btn btn-primary">Submit</button>
-        <button id="hint3" class="btn btn-secondary ms-2">Get Hint</button>
-        <p id="hintText3" class="hint mt-2"></p>
-        <div id="feedback3" class="feedback"></div>
-      </div>
-      
-      <!-- Question 4 -->
-      <div class="question-container" id="question4" style="display:none;">
-        <h3>Challenge 4: Character Substitution</h3>
-        <div class="badge bg-warning">Medium</div>
-        <p>This password uses character substitution (leet speak).</p>
-        <div class="password-clue">
-          <p>Clue 1: The word is "security" but with numbers substituted for certain letters.</p>
-          <p>Clue 2: Common substitutions: e→3, i→1, o→0, a→4, s→5, t→7</p>
-        </div>
-        <input type="text" id="password4" class="form-control mb-3" placeholder="Enter password">
-        <button id="submit4" class="btn btn-primary">Submit</button>
-        <button id="hint4" class="btn btn-secondary ms-2">Get Hint</button>
-        <p id="hintText4" class="hint mt-2"></p>
-        <div id="feedback4" class="feedback"></div>
-      </div>
-      
-      <!-- Question 5 -->
-      <div class="question-container" id="question5" style="display:none;">
-        <h3>Challenge 5: Hidden Message</h3>
-        <div class="badge bg-danger">Hard</div>
-        <p>This password is hidden in plain sight.</p>
-        <div class="password-clue">
-          <p>N3v3r g0nn4 g1v3 y0u up.</p>
-          <p>N3v3r g0nn4 l3t y0u d0wn.</p>
-          <p>N3v3r g0nn4 run 4r0und 4nd d3s3rt y0u.</p>
-        </div>
-        <input type="text" id="password5" class="form-control mb-3" placeholder="Enter password">
-        <button id="submit5" class="btn btn-primary">Submit</button>
-        <button id="hint5" class="btn btn-secondary ms-2">Get Hint</button>
-        <p id="hintText5" class="hint mt-2"></p>
-        <div id="feedback5" class="feedback"></div>
-      </div>
-      
-      <!-- Question 6 -->
-      <div class="question-container" id="question6" style="display:none;">
-        <h3>Challenge 6: Base64 Encoded</h3>
-        <div class="badge bg-danger">Hard</div>
-        <p>This password is encoded in Base64.</p>
-        <div class="password-clue">
-          <p>Encoded: aGFja2VybWFuMTIz</p>
-        </div>
-        <input type="text" id="password6" class="form-control mb-3" placeholder="Enter password">
-        <button id="submit6" class="btn btn-primary">Submit</button>
-        <button id="hint6" class="btn btn-secondary ms-2">Get Hint</button>
-        <p id="hintText6" class="hint mt-2"></p>
-        <div id="feedback6" class="feedback"></div>
-      </div>
-      
-      <!-- Question 7 -->
-      <div class="question-container" id="question7" style="display:none;">
-        <h3>Challenge 7: Common Password Pattern</h3>
-        <div class="badge bg-warning">Medium</div>
-        <p>This password follows one of the most common patterns used by people.</p>
-        <div class="password-clue">
-          <p>Clue 1: It starts with a capitalized month of the year.</p>
-          <p>Clue 2: It's followed by the current year.</p>
-          <p>Clue 3: It ends with an exclamation mark.</p>
-        </div>
-        <input type="text" id="password7" class="form-control mb-3" placeholder="Enter password">
-        <button id="submit7" class="btn btn-primary">Submit</button>
-        <button id="hint7" class="btn btn-secondary ms-2">Get Hint</button>
-        <p id="hintText7" class="hint mt-2"></p>
-        <div id="feedback7" class="feedback"></div>
-      </div>
-      
-      <!-- Question 8 -->
-      <div class="question-container" id="question8" style="display:none;">
-        <h3>Challenge 8: MD5 Hash</h3>
-        <div class="badge bg-danger">Hard</div>
-        <p>Find the original password that produces this MD5 hash.</p>
-        <div class="password-clue">
-          <p>MD5: 5f4dcc3b5aa765d61d8327deb882cf99</p>
-          <p>Clue: It's one of the most common passwords ever.</p>
-        </div>
-        <input type="text" id="password8" class="form-control mb-3" placeholder="Enter password">
-        <button id="submit8" class="btn btn-primary">Submit</button>
-        <button id="hint8" class="btn btn-secondary ms-2">Get Hint</button>
-        <p id="hintText8" class="hint mt-2"></p>
-        <div id="feedback8" class="feedback"></div>
-      </div>
-      
-      <!-- Question 9 -->
-      <div class="question-container" id="question9" style="display:none;">
-        <h3>Challenge 9: Keyboard Pattern</h3>
-        <div class="badge bg-warning">Medium</div>
-        <p>This password follows a pattern on the keyboard.</p>
-        <div class="password-clue">
-          <p>Clue 1: It starts at the letter 'q'.</p>
-          <p>Clue 2: It follows a diagonal pattern down and to the right.</p>
-          <p>Clue 3: It consists of 7 characters.</p>
-        </div>
-        <input type="text" id="password9" class="form-control mb-3" placeholder="Enter password">
-        <button id="submit9" class="btn btn-primary">Submit</button>
-        <button id="hint9" class="btn btn-secondary ms-2">Get Hint</button>
-        <p id="hintText9" class="hint mt-2"></p>
-        <div id="feedback9" class="feedback"></div>
-      </div>
-      
-      <!-- Question 10 -->
-      <div class="question-container" id="question10" style="display:none;">
-        <h3>Challenge 10: The Master Password</h3>
-        <div class="badge bg-danger">Hard</div>
-        <p>This final password combines multiple techniques.</p>
-        <div class="password-clue">
-          <p>Clue 1: It starts with the first letter of each previous password (in order).</p>
-          <p>Clue 2: It ends with the special sequence: $#@!</p>
-        </div>
-        <input type="text" id="password10" class="form-control mb-3" placeholder="Enter password">
-        <button id="submit10" class="btn btn-primary">Submit</button>
-        <button id="hint10" class="btn btn-secondary ms-2">Get Hint</button>
-        <p id="hintText10" class="hint mt-2"></p>
-        <div id="feedback10" class="feedback"></div>
-      </div>
-      
-      <!-- Results -->
-      <div class="results-card" id="results" style="display:none;">
-        <h2>Challenge Complete!</h2>
-        <h3>Your Score: <span id="finalScore">0</span>/100</h3>
-        <div class="progress mb-4">
-          <div id="finalProgressBar" class="progress-bar bg-success" role="progressbar" style="width: 0%"></div>
-        </div>
-        <p>You've completed the Password Cracker challenge!</p>
-        <div id="scoreBreakdown"></div>
-        <button class="btn btn-primary mt-3" onclick="window.location.href='/hacker-quest'">Return to Challenges</button>
-        <button class="btn btn-success mt-3 ms-2" onclick="location.reload()">Try Again</button>
+  <!-- Game Screen -->
+  <div class="main-container game-screen" id="gameScreen">
+    <h1>PASSWORD CRACKER</h1>
+    <p>Crack the password by selecting characters. You have <span id="attempts">10</span> attempts remaining!</p>
+    
+    <div class="timer">Time: <span id="timer">120</span>s</div>
+    
+    <div class="progress-container">
+      <div id="levelDisplay">Level 1 of 5</div>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
     </div>
-
-    <!-- Navigation Buttons -->
-    <div class="navigation">
-      <button id="prevButton" class="btn btn-secondary btn-prev" style="visibility: hidden;">Previous</button>
-      <button id="nextButton" class="btn btn-primary btn-next">Next</button>
+    
+    <div class="password-container">
+      <div class="password-display" id="passwordDisplay">*********</div>
+      
+      <div class="hint" id="hint">
+        This password follows a common pattern: a word followed by a number.
+      </div>
+      
+      <div class="character-buttons" id="characterButtons">
+        <!-- Character buttons will be dynamically generated here -->
+      </div>
+      
+      <div class="feedback" id="feedback"></div>
+      
+      <div class="stats">
+        <div class="stat-box">Score: <span id="score">0</span></div>
+        <div class="stat-box">Attempts: <span id="attemptsInStat">10</span></div>
+      </div>
+    </div>
+    
+    <button id="submitButton" class="btn btn-primary mt-3">Submit Guess</button>
+    <button id="nextLevelButton" class="btn btn-success mt-3 hidden">Next Level</button>
+    
+    <div id="finalScoreContainer" class="hidden">
+      <div class="final-score">Your final score: <span id="finalScore">0</span> points</div>
+      <p>You successfully cracked <span id="crackedPasswords">0</span> out of 5 passwords!</p>
+      <button onclick="window.location.href='/hacker-quest'" class="btn btn-success">Back to Challenges</button>
+      <button onclick="location.reload()" class="btn btn-primary">Try Again</button>
     </div>
   </div>
 
   <script>
-    // Password answers
-    const answers = {
-      1: "hacker123",
-      2: "a1b4c9d16",
-      3: "cyber1415",
-      4: "53cur17y",
-      5: "rickroll",
-      6: "hackerman123",
-      7: "April2025!",
-      8: "password",
-      9: "qwsxedc",
-      10: "hs5rhacp$#@!"
-    };
-    
-    // Hints
-    const hints = {
-      1: "Think about hacking plus 1, 2, 3",
-      2: "It starts with 'a1', then 'b' and the square of 2, etc.",
-      3: "PI starts with 3.1415..., reversed would be ...",
-      4: "Replace the letters in 'security' with their number equivalents",
-      5: "Look at the first letters of each line, it's a famous internet meme",
-      6: "You need to decode the Base64 string to get the plaintext",
-      7: "The current month is April and the year is 2025",
-      8: "It's literally the word 'password'",
-      9: "On a QWERTY keyboard, start at Q and go diagonally: Q, W, S, X...",
-      10: "The first letters are h, a, c, k, e, r, m, a, n, q"
-    };
+    // Password levels with passwords and hints
+    const passwordLevels = [
+      {
+        password: "password123",
+        hint: "This password follows a common pattern: a word followed by a number.",
+        characters: "abcdefghijklmnopqrstuvwxyz0123456789"
+      },
+      {
+        password: "Summer2025!",
+        hint: "Many people use seasons, the current year, and a special character in their passwords.",
+        characters: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
+      },
+      {
+        password: "P@ssw0rd",
+        hint: "People often substitute letters with similar-looking symbols: a→@, o→0, etc.",
+        characters: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
+      },
+      {
+        password: "qwerty12345",
+        hint: "Some passwords use keyboard patterns followed by sequential numbers.",
+        characters: "abcdefghijklmnopqrstuvwxyz0123456789"
+      },
+      {
+        password: "Ilovecoding!",
+        hint: "Phrases with no spaces and basic capitalization are common, sometimes with a symbol at the end.",
+        characters: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
+      }
+    ];
 
-    let currentQuestion = 1;
-    let totalQuestions = 10;
+    // Game variables
+    let currentLevel = 0;
+    let currentPassword = "";
+    let guessedPassword = "";
+    let attemptsLeft = 10;
     let score = 0;
-    let questionScores = {
-      1: 0,
-      2: 0,
-      3: 0,
-      4: 0,
-      5: 0,
-      6: 0,
-      7: 0,
-      8: 0,
-      9: 0,
-      10: 0
-    };
-    let timeLeft = 300;
-
-    // Timer
-    const timer = setInterval(() => {
-      timeLeft--;
-      document.getElementById('time').textContent = timeLeft;
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        showResults();
-      }
-    }, 1000);
-
-    // Update progress bar
-    function updateProgressBar() {
-      const progress = (currentQuestion / totalQuestions) * 100;
-      document.getElementById('progressBar').style.width = `${progress}%`;
+    let timeLeft = 120;
+    let timerInterval;
+    let crackedPasswords = 0;
+    
+    // DOM elements
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const aboutScreen = document.getElementById('aboutScreen');
+    const gameScreen = document.getElementById('gameScreen');
+    const startButton = document.getElementById('startButton');
+    const letsGoButton = document.getElementById('letsGoButton');
+    const backButton = document.getElementById('backButton');
+    const passwordDisplay = document.getElementById('passwordDisplay');
+    const hintElement = document.getElementById('hint');
+    const characterButtons = document.getElementById('characterButtons');
+    const attemptsElement = document.getElementById('attempts');
+    const attemptsInStatElement = document.getElementById('attemptsInStat');
+    const timerElement = document.getElementById('timer');
+    const levelDisplay = document.getElementById('levelDisplay');
+    const progressBar = document.querySelector('.progress-bar');
+    const feedbackElement = document.getElementById('feedback');
+    const scoreElement = document.getElementById('score');
+    const submitButton = document.getElementById('submitButton');
+    const nextLevelButton = document.getElementById('nextLevelButton');
+    const finalScoreContainer = document.getElementById('finalScoreContainer');
+    const finalScoreElement = document.getElementById('finalScore');
+    const crackedPasswordsElement = document.getElementById('crackedPasswords');
+    
+    // Event listeners for navigation
+    startButton.addEventListener('click', showAboutScreen);
+    letsGoButton.addEventListener('click', startGame);
+    backButton.addEventListener('click', showWelcomeScreen);
+    submitButton.addEventListener('click', checkGuess);
+    nextLevelButton.addEventListener('click', loadNextLevel);
+    
+    // Navigation functions
+    function showWelcomeScreen() {
+      welcomeScreen.style.display = 'block';
+      aboutScreen.style.display = 'none';
+      gameScreen.style.display = 'none';
     }
-
-    // Show question
-    function showQuestion(questionNumber) {
-      // Hide all questions
-      for (let i = 1; i <= totalQuestions; i++) {
-        document.getElementById(`question${i}`).style.display = 'none';
-      }
-      
-      // Show current question
-      document.getElementById(`question${questionNumber}`).style.display = 'block';
-      
-      // Update navigation buttons
-      if (questionNumber === 1) {
-        document.getElementById('prevButton').style.visibility = 'hidden';
-      } else {
-        document.getElementById('prevButton').style.visibility = 'visible';
-      }
-      
-      if (questionNumber === totalQuestions) {
-        document.getElementById('nextButton').textContent = 'Finish';
-      } else {
-        document.getElementById('nextButton').textContent = 'Next';
-      }
-      
-      updateProgressBar();
+    
+    function showAboutScreen() {
+      welcomeScreen.style.display = 'none';
+      aboutScreen.style.display = 'block';
+      gameScreen.style.display = 'none';
     }
-
-    // Show results
-    function showResults() {
-      // Hide all questions
-      for (let i = 1; i <= totalQuestions; i++) {
-        document.getElementById(`question${i}`).style.display = 'none';
-      }
+    
+    // Initialize game
+    function startGame() {
+      aboutScreen.style.display = 'none';
+      gameScreen.style.display = 'block';
       
-      // Show results
-      document.getElementById('results').style.display = 'block';
-      document.getElementById('finalScore').textContent = score;
-      document.getElementById('finalProgressBar').style.width = `${score}%`;
+      // Reset game state
+      currentLevel = 0;
+      score = 0;
+      crackedPasswords = 0;
+      timeLeft = 120;
       
-      // Hide navigation
-      document.getElementById('prevButton').style.visibility = 'hidden';
-      document.getElementById('nextButton').style.visibility = 'hidden';
+      // Start timer
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          endGame();
+        }
+      }, 1000);
       
-      // Generate score breakdown
-      let breakdownHTML = '<h4>Score Breakdown:</h4><ul class="list-group">';
-      for (let i = 1; i <= totalQuestions; i++) {
-        let badgeClass = questionScores[i] > 0 ? 'bg-success' : 'bg-danger';
-        breakdownHTML += `<li class="list-group-item d-flex justify-content-between align-items-center">
-          Question ${i}
-          <span class="badge ${badgeClass} rounded-pill">${questionScores[i]} points</span>
-        </li>`;
-      }
-      breakdownHTML += '</ul>';
-      document.getElementById('scoreBreakdown').innerHTML = breakdownHTML;
+      // Load first level
+      loadLevel(currentLevel);
     }
-
-    // Next button click
-    document.getElementById('nextButton').addEventListener('click', () => {
-      if (currentQuestion === totalQuestions) {
-        showResults();
-      } else {
-        currentQuestion++;
-        showQuestion(currentQuestion);
+    
+    // Load level
+    function loadLevel(levelIndex) {
+      // Update level display and progress bar
+      levelDisplay.textContent = `Level ${levelIndex + 1} of ${passwordLevels.length}`;
+      progressBar.style.width = `${((levelIndex + 1) / passwordLevels.length) * 100}%`;
+      
+      // Get current level data
+      const level = passwordLevels[levelIndex];
+      currentPassword = level.password;
+      
+      // Reset guessed password
+      guessedPassword = "*".repeat(currentPassword.length);
+      passwordDisplay.textContent = guessedPassword;
+      
+      // Set hint
+      hintElement.textContent = level.hint;
+      
+      // Reset attempts
+      attemptsLeft = 10;
+      attemptsElement.textContent = attemptsLeft;
+      attemptsInStatElement.textContent = attemptsLeft;
+      
+      // Clear feedback
+      feedbackElement.textContent = "";
+      feedbackElement.className = "feedback";
+      
+      // Generate character buttons
+      generateCharacterButtons(level.characters);
+      
+      // Hide next level button
+      nextLevelButton.classList.add('hidden');
+    }
+    
+    // Generate character buttons
+    function generateCharacterButtons(characters) {
+      characterButtons.innerHTML = "";
+      
+      for (const char of characters) {
+        const button = document.createElement('button');
+        button.className = 'char-btn';
+        button.textContent = char;
+        button.addEventListener('click', () => {
+          tryCharacter(char);
+        });
+        characterButtons.appendChild(button);
       }
-    });
-
-    // Previous button click
-    document.getElementById('prevButton').addEventListener('click', () => {
-      if (currentQuestion > 1) {
-        currentQuestion--;
-        showQuestion(currentQuestion);
+    }
+    
+    // Try a character
+    function tryCharacter(char) {
+      if (attemptsLeft <= 0) return;
+      
+      let foundMatch = false;
+      let newGuessedPassword = "";
+      
+      // Check if character exists in the password
+      for (let i = 0; i < currentPassword.length; i++) {
+        if (currentPassword[i] === char) {
+          newGuessedPassword += char;
+          foundMatch = true;
+        } else {
+          newGuessedPassword += guessedPassword[i];
+        }
       }
-    });
-
-    // Submit buttons click events
-    for (let i = 1; i <= totalQuestions; i++) {
-      document.getElementById(`submit${i}`).addEventListener('click', () => {
-        const userInput = document.getElementById(`password${i}`).value;
-        if (userInput.toLowerCase() === answers[i].toLowerCase()) {
-          document.getElementById(`feedback${i}`).innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
+      
+      if (foundMatch) {
+        // Update guessed password
+        guessedPassword = newGuessedPassword;
+        passwordDisplay.textContent = guessedPassword;
+        
+        // Check if password is fully cracked
+        if (!guessedPassword.includes('*')) {
+          crackedPasswords++;
+          const levelScore = calculateScore();
+          score += levelScore;
+          scoreElement.textContent = score;
           
-          // Award points if not already awarded
-          if (questionScores[i] === 0) {
-            // Award 10 points for easy, 10 for medium, 10 for hard
-            const points = 10;
-            questionScores[i] = points;
-            score += points;
-            document.getElementById('currentScore').textContent = score;
+          feedbackElement.textContent = `Password cracked! +${levelScore} points`;
+          feedbackElement.className = "feedback success";
+          
+          // Check if this was the last level
+          if (currentLevel < passwordLevels.length - 1) {
+            nextLevelButton.classList.remove('hidden');
+          } else {
+            endGame();
           }
         } else {
-          document.getElementById(`feedback${i}`).innerHTML = '<i class="bi bi-x-circle-fill text-danger"></i>';
+          feedbackElement.textContent = `Match found! The character "${char}" is in the password.`;
+          feedbackElement.className = "feedback success";
         }
-      });
+      } else {
+        // Decrement attempts
+        attemptsLeft--;
+        attemptsElement.textContent = attemptsLeft;
+        attemptsInStatElement.textContent = attemptsLeft;
+        
+        feedbackElement.textContent = `No match for "${char}". Try again.`;
+        feedbackElement.className = "feedback error";
+        
+        // Check if out of attempts
+        if (attemptsLeft <= 0) {
+          feedbackElement.textContent = `Out of attempts! The password was "${currentPassword}".`;
+          
+          // Check if this was the last level
+          if (currentLevel < passwordLevels.length - 1) {
+            nextLevelButton.classList.remove('hidden');
+          } else {
+            endGame();
+          }
+        }
+      }
     }
-
-    // Hint buttons click events
-    for (let i = 1; i <= totalQuestions; i++) {
-      document.getElementById(`hint${i}`).addEventListener('click', () => {
-        document.getElementById(`hintText${i}`).innerText = hints[i];
-      });
+    
+    // Check full guess
+    function checkGuess() {
+      const guessedChars = guessedPassword.split('');
+      let correct = true;
+      
+      // Check if any characters are still unguessed
+      if (guessedPassword.includes('*')) {
+        feedbackElement.textContent = "Please reveal more characters before submitting your guess.";
+        feedbackElement.className = "feedback error";
+        return;
+      }
+      
+      // Check if password matches
+      if (guessedPassword === currentPassword) {
+        crackedPasswords++;
+        const levelScore = calculateScore();
+        score += levelScore;
+        scoreElement.textContent = score;
+        
+        feedbackElement.textContent = `Password cracked! +${levelScore} points`;
+        feedbackElement.className = "feedback success";
+        
+        // Check if this was the last level
+        if (currentLevel < passwordLevels.length - 1) {
+          nextLevelButton.classList.remove('hidden');
+        } else {
+          endGame();
+        }
+      } else {
+        // Decrement attempts
+        attemptsLeft = Math.max(0, attemptsLeft - 3);
+        attemptsElement.textContent = attemptsLeft;
+        attemptsInStatElement.textContent = attemptsLeft;
+        
+        feedbackElement.textContent = "Incorrect guess! -3 attempts.";
+        feedbackElement.className = "feedback error";
+        
+        // Check if out of attempts
+        if (attemptsLeft <= 0) {
+          feedbackElement.textContent = `Out of attempts! The password was "${currentPassword}".`;
+          
+          // Check if this was the last level
+          if (currentLevel < passwordLevels.length - 1) {
+            nextLevelButton.classList.remove('hidden');
+          } else {
+            endGame();
+          }
+        }
+      }
     }
-
-    // Initialize
-    showQuestion(1);
+    
+    // Load next level
+    function loadNextLevel() {
+      currentLevel++;
+      loadLevel(currentLevel);
+      
+      // Add bonus time for completing a level
+      timeLeft += 30;
+      timerElement.textContent = timeLeft;
+    }
+    
+    // Calculate score based on attempts and time
+    function calculateScore() {
+      const baseScore = 100;
+      const attemptBonus = attemptsLeft * 10;
+      const timeBonus = Math.min(50, timeLeft / 2);
+      
+      return baseScore + attemptBonus + Math.floor(timeBonus);
+    }
+    
+    // End game
+    function endGame() {
+      clearInterval(timerInterval);
+      
+      // Show final score
+      finalScoreElement.textContent = score;
+      crackedPasswordsElement.textContent = crackedPasswords;
+      finalScoreContainer.classList.remove('hidden');
+      
+      // Hide game elements
+      document.querySelector('.password-container').style.display = 'none';
+      document.querySelector('.progress-container').style.display = 'none';
+      submitButton.style.display = 'none';
+      nextLevelButton.style.display = 'none';
+    }
   </script>
 </body>
 </html>
